@@ -133,6 +133,13 @@ a.card .mono { margin-top: auto; }
 .shot { position: relative; aspect-ratio: 16 / 10; background: var(--dark-surface); border-radius: 18px; overflow: hidden; transition: transform .2s ease; }
 .shot img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .shot .fallback { position: absolute; inset: 0; padding: 22px; display: flex; align-items: flex-end; font-size: clamp(24px, 2.4vw, 34px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: var(--on-dark); }
+.shot-web, .shot-tauler { background: var(--dark-surface); padding: 28px 28px 0; }
+.shot-web img, .shot-tauler img { object-position: left top; border-radius: 10px 10px 0 0; box-shadow: 0 0 0 1px rgba(255,255,255,.08); }
+.shot-tauler { background: #2A2F2B; }
+.shot-mobil { background: var(--dark-surface); display: flex; justify-content: center; align-items: flex-start; padding-top: 22px; }
+.shot-mobil .phone { display: block; height: calc(100% + 40px); aspect-ratio: 9 / 18.5; border: 7px solid #0B0C0B; border-bottom: 0; border-radius: 30px 30px 0 0; overflow: hidden; background: #fff; box-shadow: 0 0 0 1px #3A3F3B; }
+.shot-mobil .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.format-tag { position: absolute; left: 12px; top: 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark); background: rgba(18,20,18,.82); border: 1px solid #3A3F3B; padding: 4px 8px; border-radius: 999px; z-index: 2; }
 .shot.paused { background: var(--lines); }
 .shot.paused .fallback { color: var(--ink); }
 .shot.paused img { filter: grayscale(1); opacity: .75; }

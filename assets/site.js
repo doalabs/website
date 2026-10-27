@@ -16,16 +16,21 @@
     return n;
   }
 
+  var FORMAT_LABEL = { mobil: "App mòbil", web: "Web", tauler: "Tauler de gestió" };
+
   function card(p) {
     var paused = p.status === "Aturat";
-    var shot = el("div", { "class": "shot" + (paused ? " paused" : "") }, [
-      el("span", { "class": "fallback", "aria-hidden": "true", text: p.name })
+    var format = p.format || "web";
+    var shot = el("div", { "class": "shot shot-" + format + (paused ? " paused" : "") }, [
+      el("span", { "class": "fallback", "aria-hidden": "true", text: p.name }),
+      el("span", { "class": "format-tag", text: FORMAT_LABEL[format] || "Web" })
     ]);
     if (p.shot) {
       var img = el("img", { src: p.shot, alt: "Captura de " + p.name, loading: "lazy", decoding: "async" });
       img.addEventListener("load", function () { shot.querySelector(".fallback").style.display = "none"; });
       img.addEventListener("error", function () { img.remove(); });
-      shot.insertBefore(img, shot.firstChild);
+      var holder = format === "mobil" ? el("span", { "class": "phone" }, [img]) : img;
+      shot.insertBefore(holder, shot.firstChild);
     }
     var tagName = p.page ? "a" : "article";
     var attrs = { "class": "project" };

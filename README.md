@@ -47,11 +47,10 @@ Not shown: MDO, SUMA Llar, Puerto, Milo, Prego, Ajudes Clares, My Digital Me, Ma
 Plain and practical, one business owner to another. Concrete numbers, euros, hours, real screens. Never: revolucionar, disruptiu, "potenciat per IA" as a headline, SaaS/ERP/LLM jargon.
 
 ## Stack
-Static site in this repo (`doalabs/website`), hosted on Netlify. Booking: Cal.com `cal.com/doalabs/primera-cita` (30 min, free, Mitico Spaces or video). Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
+Static site in this repo (`doalabs/website`), hosted on Netlify. Booking: Cal.com `cal.com/doalabs/primera-cita` (30 min, free, Mitico Spaces or video). Email: Resend from hola@[domain]. Domain: doalabs.eu (Namecheap), connected to Netlify.
 
 ## Open
-- [ ] Domain: doa-labs.com or doalabs.eu
-- [ ] Screenshots: currently loaded from Lovable's screenshot links; save them into assets/shots/ so they don't break
+- [ ] DNS for doalabs.eu at Namecheap (ALIAS @ → apex-loadbalancer.netlify.com, CNAME www → doalabs.netlify.app)
 - [ ] Contact email shown as hola@doalabs.eu until the domain is decided
 - [ ] ES and EN versions
 - [ ] Registered address and CIF (Mitico Spaces as company address?)
