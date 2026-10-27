@@ -2,7 +2,13 @@
 
 Public website and private admin for **DOA Labs SLU**: business and AI consulting for small businesses, from Sant Andreu de Llavaneres (Maresme).
 
-Status: **design v1 approved in direction** (Claude Design canvas: home, work, Whalbar case study, phone). Next: build in Lovable and link this repo.
+Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no dependencies). Deploy on Vercel or Netlify from this repo. `lovable-first-build.md` keeps the Lovable prompt for when an admin panel is needed.
+
+## Editing
+- Projects: `assets/projects.js` (add, reorder, change status or text; `featured: true` shows it on the home page).
+- Settings: `assets/config.js` (booking calendar URL, contact email).
+- Styles: `assets/styles.css` (design tokens at the top).
+- Pages: `index.html`, `feina/`, `feina/whalbar/`, `immobiliari/`, `cita/`, `privacitat/`, `avis-legal/`, `404.html`.
 
 ## Positioning
 - **Line:** *Tu fes la teva feina. El sistema fa la resta.*
@@ -51,10 +57,13 @@ Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) 
 Plain and practical, one business owner to another. Concrete numbers, euros, hours, real screens. Never: revolucionar, disruptiu, "potenciat per IA" as a headline, SaaS/ERP/LLM jargon.
 
 ## Stack
-Lovable (site + admin + database) → this repo (`doalabs/website`). Booking: Cal.com [URL]. Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
+Static site in this repo (`doalabs/website`), hosted on Vercel [to connect]. Booking: Cal.com [URL]. Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
 
 ## Open
 - [ ] Domain: doa-labs.com or doalabs.eu
-- [ ] Screenshots: pulled from each Lovable project during the build; real photo of Dani still needed
+- [ ] Screenshots: currently loaded from Lovable's screenshot links; save them into assets/shots/ so they don't break
+- [ ] Booking calendar (Cal.com) URL into assets/config.js; until then /cita/ uses email
+- [ ] Contact email shown as hola@doalabs.eu until the domain is decided
+- [ ] ES and EN versions
 - [ ] Registered address and CIF (Mitico Spaces as company address?)
 - [ ] Length of the free first appointment
