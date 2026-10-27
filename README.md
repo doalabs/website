@@ -7,14 +7,14 @@ Status: **design v1 approved in direction** (Claude Design canvas: home, work, W
 ## Positioning
 - **Line:** *Tu fes la teva feina. El sistema fa la resta.*
 - **Promise:** I listen, we look at it together, I make a proposal, we agree it, I build it in your name, and then it runs on its own.
-- **Proof:** 16 products and client systems built; 10+ years selling property on the Maresme coast; 13 years running seven bars, restaurants and beach clubs; Oracle (Dublin) [role, years]; Localret.
+- **Proof:** 16 products and client systems built; 10+ years selling property on the Maresme coast; 13 years running seven bars, restaurants and beach clubs; one year at Oracle EMEA (Dublin); Localret.
 - **Doors:** property agents (second door, own landing) · clubs & associations · coaches & services · hospitality.
 
 ## Languages
 Catalan first, then Spanish and English (switcher CA · ES · EN). ES and EN copy follow once the Catalan version is approved.
 
 ## Pages
-Home · Feina (work, filter by sector) · case study pages · Què faig · Com treballem · Preus · Qui sóc · Reserva una trucada (Cal.com) · Privacitat / Galetes / Avís legal.
+Home · Feina (work, filter by sector) · case study pages · Què faig · Com treballem · Preus · Qui sóc · Demana cita (booking calendar, in person in the Maresme or video; no free call) · Privacitat / Galetes / Avís legal.
 
 ## Pricing shown
 Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) · extra AI workflow 220 €. Launch rate, first 5 clients. Standard 50 €/h; out-of-scope changes 50 €/h quoted first. Payment 40 / 30 / 30.
@@ -51,12 +51,11 @@ Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) 
 Plain and practical, one business owner to another. Concrete numbers, euros, hours, real screens. Never: revolucionar, disruptiu, "potenciat per IA" as a headline, SaaS/ERP/LLM jargon.
 
 ## Stack
-Lovable (site + admin + database) → this repo (`doalabs/website`). Booking: Cal.com [URL]. Email: Resend from hola@[domain]. Domain: [to decide].
+Lovable (site + admin + database) → this repo (`doalabs/website`). Booking: Cal.com [URL]. Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
 
 ## Open
-- [ ] Domain
-- [ ] Oracle role and years
+- [ ] Domain: doa-labs.com or doalabs.eu
 - [ ] Permissions: Sam, 3 Viles, Daniela/MDO, Endora partners
 - [ ] Screenshots of each project and a real photo
 - [ ] Registered address and CIF (Mitico Spaces as company address?)
-- [ ] Call length for the free call (30 min?)
+- [ ] First meeting: free or paid, and length
