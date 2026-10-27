@@ -1,6 +1,8 @@
 /* DOA Labs — renders project cards and the sector filter. No dependencies. */
 (function () {
   var DOTS = { "En marxa": "var(--live)", "Beta": "var(--beta)", "Llançament": "var(--beta)", "En desenvolupament": "var(--dev)", "Aturat": "var(--paused)" };
+  // Work-page filter groups cases by the kind of solution, which is what a client is looking for
+  var FILTER_KEY = "kind";
   var all = window.DOA_PROJECTS || [];
 
   function el(tag, attrs, children) {
@@ -32,7 +34,7 @@
       shot,
       el("h3", { text: p.name }),
       el("div", { "class": "meta" }, [
-        el("span", { text: p.sector + " · " + p.tag }),
+        el("span", { text: p.kind + " · " + p.sector }),
         el("span", { "class": "status" }, [
           el("span", { "class": "dot", "aria-hidden": "true", style: "background:" + (DOTS[p.status] || "var(--paused)") }),
           document.createTextNode(p.status)
@@ -62,17 +64,17 @@
   var filters = document.querySelector("[data-filters]");
   if (grid && filters) {
     var sectors = ["Tots"];
-    all.forEach(function (p) { if (sectors.indexOf(p.sector) < 0) sectors.push(p.sector); });
+    all.forEach(function (p) { if (sectors.indexOf(p[FILTER_KEY]) < 0) sectors.push(p[FILTER_KEY]); });
     var current = "Tots";
     var buttons = sectors.map(function (s) {
-      var count = s === "Tots" ? all.length : all.filter(function (p) { return p.sector === s; }).length;
+      var count = s === "Tots" ? all.length : all.filter(function (p) { return p[FILTER_KEY] === s; }).length;
       var b = el("button", { type: "button", "class": "chip", "aria-pressed": s === current ? "true" : "false" }, [
         document.createTextNode(s), el("span", { text: String(count) })
       ]);
       b.addEventListener("click", function () {
         current = s;
         buttons.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
-        render(grid, all.filter(function (p) { return s === "Tots" || p.sector === s; }));
+        render(grid, all.filter(function (p) { return s === "Tots" || p[FILTER_KEY] === s; }));
       });
       filters.appendChild(b);
       return b;

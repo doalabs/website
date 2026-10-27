@@ -13,7 +13,7 @@ Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no depe
 ## Positioning
 - **Line:** *Tu fes la teva feina. El sistema fa la resta.*
 - **Promise:** I listen, we look at it together, I make a proposal, we agree it, I build it in your name, and then it runs on its own.
-- **Proof:** 16 products and client systems built; 10+ years selling property on the Maresme coast; 13 years running seven bars, restaurants and beach clubs; one year at Oracle EMEA (Dublin); Localret.
+- **Proof:** 30+ websites, apps, agents and tools built; 10+ years selling property on the Maresme coast; 13 years running seven bars, restaurants and beach clubs; one year at Oracle EMEA (Dublin); Localret.
 - **Doors:** property agents (second door, own landing) · clubs & associations · coaches & services · hospitality.
 
 ## Languages
@@ -25,25 +25,15 @@ Home · Feina (work, filter by sector) · case study pages · Què faig · Com t
 ## Pricing shown
 Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) · extra AI workflow 220 €. Launch rate, first 5 clients. Standard 50 €/h; out-of-scope changes 50 €/h quoted first. Payment 40 / 30 / 30.
 
-## Portfolio (status · tag)
-| Sector | Project | Tag | Status |
-|---|---|---|---|
-| Coaching | Sam Brindle Coaching | Client | Live |
-| Clubs i esport | SwishCoach | Co-founded · Endora Biotech Sports SL | Live |
-| | 3 Viles → Fan Club Connect | Client → Own | In development |
-| | Court Commander | Own | In development |
-| | Matchday Journal Builder | Own | Live |
-| Immobiliari | MDO Property Consultants | Client → Own | In development |
-| | Viure al Maresme | Own | Live |
-| | SUMA Llar | Own | Live |
-| | PropPulse | Own | Live |
-| Hostaleria | Whalbar | Own | Live |
-| Marques i botiga | Puerto | Own | Live |
-| Formació | AEA | Own | Launching |
-| Finances personals | Milo | Own | Beta |
-| Municipis | Ajudes Clares | Own | In development |
-| | Prego | Own | Paused |
-| Privacitat | My Digital Me | Own | Paused |
+## Target and message
+- **Who:** small businesses (pimes), shops and self-employed people (autònoms) in the Maresme and Barcelona; sectors known from inside: real estate, hospitality and retail, clubs and associations, professionals and trainers.
+- **Pain:** paying every month for big tools they half use, re-typing data, answering the same questions on WhatsApp, not being found, not knowing where to start with AI.
+- **Promise:** I analyse your business, your image and the tools you pay for, and build what you really need: automated, in your name, no monthly licences. You save time and money and modernise.
+- **Solutions:** diagnosis and advice · custom management tools (ERP/CRM-like dashboards) · AI agents (WhatsApp, documents, photos) · process automation · websites that bring clients · online academies · loyalty and new revenue (digital fan cards).
+
+## Cases shown (no "own product" labels; the site shows solutions, not ownership)
+Whalbar (AI agent, hospitality) · Daniela Meriuta (website and lead capture, real estate) · Club Bàsquet 3 Viles (custom management tool) · SwishCoach (AI app, for Endora Biotech Sports) · AEA (online academy) · Fan cards (loyalty and revenue for clubs) · Sam Brindle Coaching · Camí al 14 (study platform for AMPAs) · Viure al Maresme · PropPulse · Court Commander.
+Not shown: MDO, SUMA Llar, Puerto, Milo, Prego, Ajudes Clares, My Digital Me, Matchday Journal Builder.
 
 ## Design system (do not drift)
 - Colours: ground `#F2F0EA` · surface `#FFFFFF` · ink / dark band `#121412` · dark surface `#1C1F1D` · muted `#575C57` · on-dark muted `#A9AEA8` · lines `#D9D6CC` · accent `#FF6A2B` (fills and large type only; never small text on light ground)
