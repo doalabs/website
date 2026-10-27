@@ -14,7 +14,7 @@ Status: **design v1 approved in direction** (Claude Design canvas: home, work, W
 Catalan first, then Spanish and English (switcher CA · ES · EN). ES and EN copy follow once the Catalan version is approved.
 
 ## Pages
-Home · Feina (work, filter by sector) · case study pages · Què faig · Com treballem · Preus · Qui sóc · Demana cita (booking calendar, in person in the Maresme or video; no free call) · Privacitat / Galetes / Avís legal.
+Home · Feina (work, filter by sector) · case study pages · Què faig · Com treballem · Preus · Qui sóc · Demana cita (booking calendar; first appointment free, in person in the Maresme or by video; no free phone call) · Privacitat / Galetes / Avís legal.
 
 ## Pricing shown
 Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) · extra AI workflow 220 €. Launch rate, first 5 clients. Standard 50 €/h; out-of-scope changes 50 €/h quoted first. Payment 40 / 30 / 30.
@@ -22,12 +22,12 @@ Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) 
 ## Portfolio (status · tag)
 | Sector | Project | Tag | Status |
 |---|---|---|---|
-| Coaching | Sam Brindle Coaching | Client | Live · [permission pending] |
-| Clubs i esport | SwishCoach | Co-founded · Endora Biotech Sports SL | Live · [partners' OK pending] |
-| | 3 Viles → Fan Club Connect | Client → Own | In development · [club's OK pending] |
+| Coaching | Sam Brindle Coaching | Client | Live |
+| Clubs i esport | SwishCoach | Co-founded · Endora Biotech Sports SL | Live |
+| | 3 Viles → Fan Club Connect | Client → Own | In development |
 | | Court Commander | Own | In development |
 | | Matchday Journal Builder | Own | Live |
-| Immobiliari | MDO Property Consultants | Client → Own | In development · [OK pending] |
+| Immobiliari | MDO Property Consultants | Client → Own | In development |
 | | Viure al Maresme | Own | Live |
 | | SUMA Llar | Own | Live |
 | | PropPulse | Own | Live |
@@ -55,7 +55,6 @@ Lovable (site + admin + database) → this repo (`doalabs/website`). Booking: Ca
 
 ## Open
 - [ ] Domain: doa-labs.com or doalabs.eu
-- [ ] Permissions: Sam, 3 Viles, Daniela/MDO, Endora partners
-- [ ] Screenshots of each project and a real photo
+- [ ] Screenshots: pulled from each Lovable project during the build; real photo of Dani still needed
 - [ ] Registered address and CIF (Mitico Spaces as company address?)
-- [ ] First meeting: free or paid, and length
+- [ ] Length of the free first appointment
