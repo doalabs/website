@@ -1,8 +1,8 @@
 # DOA Labs · website
 
-Public website and private admin for **DOA Labs SLU**: business and AI consulting for small businesses, from Sant Andreu de Llavaneres (Maresme).
+Public website for **DOA Labs SLU**: business and AI consulting for small businesses, from Sant Andreu de Llavaneres (Maresme).
 
-Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no dependencies). Deploy on Vercel or Netlify from this repo. `lovable-first-build.md` keeps the Lovable prompt for when an admin panel is needed.
+Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no dependencies). Hosted on Netlify from this repo (public repo, free plan). The Lovable prompt for a future admin version lives in `doalabs/playbook/builds/`.
 
 ## Editing
 - Projects: `assets/projects.js` (add, reorder, change status or text; `featured: true` shows it on the home page).
@@ -57,7 +57,7 @@ Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) 
 Plain and practical, one business owner to another. Concrete numbers, euros, hours, real screens. Never: revolucionar, disruptiu, "potenciat per IA" as a headline, SaaS/ERP/LLM jargon.
 
 ## Stack
-Static site in this repo (`doalabs/website`), hosted on Vercel [to connect]. Booking: Cal.com [URL]. Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
+Static site in this repo (`doalabs/website`), hosted on Netlify. Booking: Cal.com [URL]. Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
 
 ## Open
 - [ ] Domain: doa-labs.com or doalabs.eu
