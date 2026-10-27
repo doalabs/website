@@ -57,13 +57,11 @@ Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) 
 Plain and practical, one business owner to another. Concrete numbers, euros, hours, real screens. Never: revolucionar, disruptiu, "potenciat per IA" as a headline, SaaS/ERP/LLM jargon.
 
 ## Stack
-Static site in this repo (`doalabs/website`), hosted on Netlify. Booking: Cal.com [URL]. Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
+Static site in this repo (`doalabs/website`), hosted on Netlify. Booking: Cal.com `cal.com/doalabs/primera-cita` (30 min, free, Mitico Spaces or video). Email: Resend from hola@[domain]. Domain: doa-labs.com or doalabs.eu [to decide].
 
 ## Open
 - [ ] Domain: doa-labs.com or doalabs.eu
 - [ ] Screenshots: currently loaded from Lovable's screenshot links; save them into assets/shots/ so they don't break
-- [ ] Booking calendar (Cal.com) URL into assets/config.js; until then /cita/ uses email
 - [ ] Contact email shown as hola@doalabs.eu until the domain is decided
 - [ ] ES and EN versions
 - [ ] Registered address and CIF (Mitico Spaces as company address?)
-- [ ] Length of the free first appointment
