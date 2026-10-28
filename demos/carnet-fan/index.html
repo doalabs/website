@@ -81,6 +81,8 @@ section{padding-block:76px}
 .face > *{position:relative;z-index:1}
 .f-top{display:flex;justify-content:space-between;align-items:center}
 .f-top .crest{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:17px;border:3px solid var(--red)}
+.escut{width:58px;height:auto;display:block;filter:drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 1.2px #fff)}
+.escut-card{width:52px;height:auto;display:block;filter:drop-shadow(0 0 1.2px #fff) drop-shadow(0 0 1.2px #fff)}
 .f-top span{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em}
 .som{font-family:var(--display);font-weight:800;line-height:.82;text-transform:uppercase}
 .som .a{display:block;font-size:64px}
@@ -133,7 +135,7 @@ footer b{color:var(--ink)}
 <div class="band">
   <div class="wrap">
     <header class="top">
-      <a class="brand" href="#inici" aria-label="Carnet de fan, inici"><span class="crest" aria-hidden="true">3V</span><span><b>Carnet de fan</b><small>Pilot amb el Club Bàsquet 3 Viles</small></span></a>
+      <a class="brand" href="#inici" aria-label="Carnet de fan, inici"><img class="escut" src="escut-3-viles.png" alt="" width="58" height="49"><span><b>Carnet de fan</b><small>Pilot amb el Club Bàsquet 3 Viles</small></span></a>
       <span class="pill"><span class="dot" style="background:#60A5FA"></span>En desenvolupament · temporada 2026–27</span>
     </header>
     <div class="hero" id="inici">
@@ -198,7 +200,7 @@ footer b{color:var(--ink)}
       <div class="cardstage">
         <button class="fan" id="fan" type="button" aria-label="Carnet de fan. Toca per girar-lo.">
           <span class="face front">
-            <span class="f-top"><span class="crest" aria-hidden="true">3V</span><span>FAN 2026–27</span></span>
+            <span class="f-top"><img class="escut-card" src="escut-3-viles.png" alt="" width="52" height="44"><span>FAN 2026–27</span></span>
             <span class="som"><span class="a">SOM</span><span class="b">MARESME</span></span>
             <span class="who"><span id="nm1">NOM COGNOM</span><small id="num1">NÚM. FAN 0127</small></span>
           </span>
@@ -221,18 +223,18 @@ footer b{color:var(--ink)}
     <div class="head">
       <span class="eyebrow">Per a la junta</span>
       <h2>Fes números per al teu club</h2>
-      <p class="lead">Mou els valors. És una calculadora simple: carnets venuts per preu del carnet. No inclou les comissions del cobrament en línia.</p>
+      <p class="lead">El carnet del 3 Viles costa 15 € per temporada. Mou els valors per al teu club: carnets venuts per preu del carnet. No inclou les comissions del cobrament en línia.</p>
     </div>
     <div class="sim">
       <div class="sliders">
         <div class="sl"><label for="fans">Carnets venuts <output id="oFans" for="fans">200</output></label><input id="fans" type="range" min="25" max="1000" step="25" value="200"></div>
-        <div class="sl"><label for="price">Preu del carnet <output id="oPrice" for="price">20 €</output></label><input id="price" type="range" min="5" max="60" step="5" value="20"></div>
+        <div class="sl"><label for="price">Preu del carnet <output id="oPrice" for="price">15 €</output></label><input id="price" type="range" min="5" max="60" step="5" value="15"></div>
         <div class="sl"><label for="shopsN">Comerços adherits <output id="oShops" for="shopsN">15</output></label><input id="shopsN" type="range" min="0" max="60" step="1" value="15"></div>
       </div>
       <div class="result" aria-live="polite">
         <span class="eyebrow" style="color:#AFC0E4">Ingressos per temporada</span>
-        <span class="big" id="total">4.000 €</span>
-        <div class="row"><span>Per carnet</span><b id="per">20 €</b></div>
+        <span class="big" id="total">3.000 €</span>
+        <div class="row"><span>Per carnet</span><b id="per">15 €</b></div>
         <div class="row"><span>Aficionats per comerç</span><b id="ratio">13</b></div>
         <div class="row"><span>Quota mensual de programari</span><b>0 €</b></div>
       </div>
