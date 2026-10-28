@@ -46,6 +46,7 @@ Not shown: MDO, SUMA Llar, Puerto, Prego, Ajudes Clares, My Digital Me, Matchday
 - Shapes: 16–24 px radii on cards, pill buttons, 44 px minimum touch targets, max width 1240 px
 - Forbidden: gradients, purple/blue tech palettes, glassmorphism, emoji, stock photos of people, left-border accent cards, sparkle or robot icons
 - Logo: three blocks D (outline) · O (accent) · A (solid) + "Labs" (`.mk` in styles.css); with the method line Diagnosticar · Ordenar · Automatitzar for documents. Favicon: the orange O block.
+- Videos: `assets/video/` (720p web versions, preload none). Move to YouTube if Netlify credits run short.
 - Images: real screenshots of each project; real photo of Dani. Placeholder scene photos in `assets/photos/` (AI-generated, warm muted colour with grain) until real ones are taken
 
 ## Voice
