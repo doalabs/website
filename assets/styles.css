@@ -296,3 +296,47 @@ a.card .mono { margin-top: auto; }
 .photos-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
 .photos-3 .photo img { aspect-ratio: 4 / 5; }
 .photo figcaption { margin-top: 12px; font-size: 15px; font-weight: 600; color: var(--body-muted); }
+
+/* Stacked demo cards */
+.stack { margin-top: 48px; display: flex; flex-direction: column; gap: 32px; }
+.stack-card { position: sticky; top: calc(24px + var(--i) * 22px); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 32px 48px; align-items: center;
+  border-radius: 32px; padding: clamp(32px, 5vw, 64px); min-height: 560px; box-shadow: 0 -1px 0 rgba(0,0,0,.04); }
+.stack-card h3 { font-size: clamp(34px, 4vw, 56px); line-height: 1; letter-spacing: -0.035em; font-weight: 800; margin: 18px 0 0; }
+.stack-card p { margin: 20px 0 0; font-size: 19px; line-height: 1.5; max-width: 520px; }
+.stack-tag { display: inline-flex; padding: 9px 16px; border-radius: 999px; font-weight: 700; font-size: 14px; }
+.stack-steps { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.stack-steps li { display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px 10px 10px; border-radius: 999px; font-weight: 600; font-size: 15px; }
+.stack-steps li span { width: 26px; height: 26px; border-radius: 13px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; }
+.stack-btn { margin-top: 32px; }
+.stack-media { display: flex; justify-content: center; align-items: center; border-radius: 24px; padding: 32px; min-height: 440px; }
+.stack-phone { width: min(230px, 60vw); aspect-ratio: 9 / 18.5; border: 8px solid #0B0C0B; border-radius: 34px; overflow: hidden; background: #fff; box-shadow: 0 18px 40px rgba(0,0,0,.22); }
+.stack-phone img, .stack-browser img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.stack-browser { width: 100%; aspect-ratio: 16 / 11; border-radius: 14px; overflow: hidden; background: var(--dark-surface); padding-top: 26px; position: relative; box-shadow: 0 18px 40px rgba(0,0,0,.2); }
+.stack-browser i { position: absolute; left: 14px; top: 9px; width: 8px; height: 8px; border-radius: 4px; background: #555a56; box-shadow: 14px 0 0 #555a56, 28px 0 0 #555a56; }
+/* colourways (brand only) */
+.stack-card.is-accent { background: var(--accent); color: var(--ink); }
+.is-accent .stack-tag, .is-accent .stack-steps li { background: rgba(18,20,18,.1); }
+.is-accent .stack-steps li span { background: var(--ink); color: var(--accent); }
+.is-accent .stack-media { background: rgba(255,255,255,.28); }
+.is-accent .stack-btn { background: var(--ink); color: var(--on-dark); }
+.stack-card.is-ink { background: var(--ink); color: var(--on-dark); }
+.is-ink p, .is-dark p { color: var(--on-dark-body); }
+.is-ink .stack-tag, .is-ink .stack-steps li, .is-dark .stack-tag, .is-dark .stack-steps li { background: rgba(242,240,234,.1); }
+.is-ink .stack-steps li span, .is-dark .stack-steps li span { background: var(--accent); color: var(--ink); }
+.is-ink .stack-media, .is-dark .stack-media { background: rgba(242,240,234,.06); }
+.is-ink .stack-btn, .is-dark .stack-btn { background: var(--accent); color: var(--ink); }
+.stack-card.is-white { background: var(--surface); border: 1px solid var(--lines); }
+.stack-card.is-dark { background: var(--dark-surface); color: var(--on-dark); }
+.stack-card.is-ground { background: #E7E3D8; }
+.is-white p, .is-ground p { color: var(--body-muted); }
+.is-white .stack-tag, .is-white .stack-steps li, .is-ground .stack-tag, .is-ground .stack-steps li { background: rgba(18,20,18,.06); }
+.is-white .stack-steps li span, .is-ground .stack-steps li span { background: var(--ink); color: var(--on-dark); }
+.is-white .stack-media { background: var(--ground); }
+.is-ground .stack-media { background: rgba(255,255,255,.55); }
+.is-white .stack-btn, .is-ground .stack-btn { background: var(--ink); color: var(--on-dark); }
+.stack-btn:hover { filter: brightness(1.08); }
+@media (max-width: 860px) {
+  .stack-card { grid-template-columns: 1fr; min-height: 0; top: calc(12px + var(--i) * 12px); }
+  .stack-media { min-height: 0; padding: 24px; }
+}
+@media (max-width: 600px) { .stack-card { position: relative; top: 0; } .stack-card p { font-size: 17px; } }
