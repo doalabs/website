@@ -336,7 +336,14 @@ a.card .mono { margin-top: auto; }
 .is-white .stack-btn, .is-ground .stack-btn { background: var(--ink); color: var(--on-dark); }
 .stack-btn:hover { filter: brightness(1.08); }
 @media (max-width: 860px) {
-  .stack-card { grid-template-columns: 1fr; min-height: 0; top: calc(12px + var(--i) * 12px); }
-  .stack-media { min-height: 0; padding: 24px; }
+  .stack { gap: 20px; }
+  .stack-card { grid-template-columns: 1fr; min-height: 0; gap: 16px; top: calc(10px + var(--i) * 10px); padding: 24px 22px; border-radius: 26px; }
+  .stack-card h3 { font-size: clamp(26px, 7.4vw, 36px); margin-top: 12px; }
+  .stack-card p { font-size: 16px; margin-top: 10px; }
+  .stack-tag { font-size: 12.5px; padding: 7px 12px; }
+  .stack-steps { display: none; }
+  .stack-btn { margin-top: 16px; }
+  .stack-media { min-height: 0; padding: 14px; border-radius: 18px; }
+  .stack-phone { width: clamp(96px, 15vh, 140px); border-width: 6px; border-radius: 22px; }
+  .stack-browser { width: 92%; }
 }
-@media (max-width: 600px) { .stack-card { position: relative; top: 0; } .stack-card p { font-size: 17px; } }

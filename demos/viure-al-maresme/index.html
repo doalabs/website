@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viure al Maresme · demo · DOA Labs</title>
+<meta name="description" content="Demo interactiva de Viure al Maresme: calculadora d'estalvi, valoració, portal del venedor, ofertes i arres en 3 mesos.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&amp;display=swap">
+<style>
+:root { --ink:#1B1B1B; --muted:#5B5B5B; --white:#fff; --line:#E8E8E8;
+  --green:#8BD650; --sky:#7ACFFF; --deep:#05824A; --yellow:#FFD43B; --orange:#FC9628; --red:#E20A0A; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--white); color: var(--ink); font-family: Poppins, system-ui, sans-serif; font-size: 16px; line-height: 1.5; }
+button, input, select { font: inherit; color: inherit; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: rgba(255,255,255,.94); backdrop-filter: blur(6px); z-index: 20; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+.ring { width: 40px; height: 40px; border-radius: 50%; background: conic-gradient(var(--sky) 0 25%, var(--green) 0 50%, var(--yellow) 0 70%, var(--orange) 0 85%, var(--red) 0 100%); position: relative; flex: none; }
+.ring::after { content: ""; position: absolute; inset: 8px; background: #fff; border-radius: 50%; }
+.brand b { display: block; font-weight: 700; font-size: 20px; line-height: 1.1; letter-spacing: -.02em; }
+.brand small { display: block; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.cta { display: inline-flex; align-items: center; min-height: 44px; padding: 0 22px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 600; text-decoration: none; border: 0; cursor: pointer; white-space: nowrap; }
+.hero { padding: 48px 0 28px; }
+.hero h1 { margin: 0; font-size: clamp(36px, 6.4vw, 78px); line-height: 1; letter-spacing: -.045em; font-weight: 800; max-width: 980px; }
+.hero h1 em { font-style: normal; color: var(--deep); }
+.hero p { margin: 18px 0 0; font-size: clamp(17px, 1.6vw, 20px); color: var(--muted); max-width: 620px; }
+
+/* stacked cards */
+.stack { display: flex; flex-direction: column; gap: 28px; padding: 24px 0 120px; }
+.card { position: sticky; top: calc(84px + var(--i) * 26px); border-radius: 40px; padding: clamp(26px, 4.4vw, 60px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px 48px; align-items: center; min-height: 520px; }
+.card.no-stick { position: relative; top: 0; }
+.tag { display: inline-flex; padding: 8px 16px; border-radius: 12px; font-weight: 600; font-size: 15px; background: rgba(0,0,0,.09); }
+.card h2 { margin: 18px 0 0; font-size: clamp(30px, 4.4vw, 60px); line-height: 1.02; letter-spacing: -.04em; font-weight: 800; }
+.card p.lead { margin: 18px 0 0; font-size: clamp(16px, 1.5vw, 19px); max-width: 520px; }
+.panel { background: rgba(255,255,255,.45); border-radius: 30px; padding: clamp(16px, 2.4vw, 28px); display: flex; flex-direction: column; gap: 14px; }
+.row { background: #fff; border-radius: 22px; padding: 16px 20px; display: flex; align-items: center; gap: 14px; color: var(--ink); }
+.row .ic { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; font-weight: 800; }
+.row b { display: block; font-weight: 700; }
+.row span.s { display: block; font-size: 14.5px; color: var(--muted); }
+.row .end { margin-left: auto; font-weight: 700; white-space: nowrap; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 20px; border-radius: 999px; border: 0; cursor: pointer; font-weight: 600; background: var(--ink); color: #fff; }
+.btn.ghost { background: #fff; color: var(--ink); }
+.btn:disabled { opacity: .45; cursor: default; }
+.btns { display: flex; flex-wrap: wrap; gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 2px solid rgba(0,0,0,.14); background: #fff; cursor: pointer; font-weight: 600; }
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+label.f { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 14.5px; }
+select, input[type=number] { min-height: 46px; border-radius: 14px; border: 2px solid rgba(0,0,0,.12); background: #fff; padding: 0 12px; width: 100%; }
+input[type=range] { width: 100%; accent-color: var(--ink); }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.big { font-size: clamp(30px, 4vw, 46px); font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+.note { font-size: 13px; opacity: .8; margin: 0; }
+.fade { animation: in .35s ease both; }
+@keyframes in { from { opacity: 0; transform: translateY(8px); } }
+
+.c-green { background: var(--green); }
+.c-sky { background: var(--sky); }
+.c-deep { background: var(--deep); color: #fff; }
+.c-deep .tag { background: rgba(255,255,255,.16); }
+.c-deep .panel { background: rgba(255,255,255,.14); }
+.c-yellow { background: var(--yellow); }
+.c-orange { background: var(--orange); }
+.c-red { background: var(--red); color: #fff; }
+.c-red .tag { background: rgba(255,255,255,.18); }
+.c-red .panel { background: rgba(255,255,255,.14); }
+
+/* timeline */
+.tl { position: relative; display: flex; flex-direction: column; gap: 14px; padding-left: 34px; }
+.tl::before { content: ""; position: absolute; left: 13px; top: 18px; bottom: 18px; width: 3px; background: rgba(255,255,255,.7); }
+.tl .row { position: relative; }
+.tl .row::before { content: ""; position: absolute; left: -31px; top: 50%; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%; background: #fff; border: 4px solid var(--red); }
+.tl .row.done::before { background: var(--ink); border-color: #fff; }
+.tl .row.now { outline: 4px solid var(--ink); }
+
+/* tabs in portal */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { min-height: 40px; padding: 0 14px; border-radius: 999px; border: 0; background: rgba(255,255,255,.18); color: #fff; font-weight: 600; cursor: pointer; }
+.tab[aria-selected="true"] { background: #fff; color: var(--deep); }
+.check { width: 26px; height: 26px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; flex: none; }
+.ok { background: var(--deep); color: #fff; }
+.wait { background: #EEE; color: var(--muted); }
+
+@media (max-width: 860px) {
+  .card { grid-template-columns: 1fr; min-height: 0; top: calc(74px + var(--i) * 10px); border-radius: 28px; gap: 18px; }
+  .card h2 { margin-top: 12px; }
+  .row { padding: 12px 14px; border-radius: 18px; }
+  .row .ic { width: 38px; height: 38px; }
+  .grid2 { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .card { padding: 22px 18px; }
+  .card h2 { font-size: clamp(26px, 7.2vw, 34px); }
+  .card p.lead { font-size: 14.5px; margin-top: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .tag { font-size: 13px; padding: 6px 12px; }
+  .panel { padding: 12px; gap: 9px; border-radius: 22px; }
+  .row { padding: 10px 12px; gap: 10px; }
+  .row .s { font-size: 13px; }
+  .big { font-size: 28px; }
+  #pview.two { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  #pview.two .row .s { display: none; }
+  select, input[type=number] { min-height: 42px; font-size: 14px; }
+  .chip { min-height: 38px; padding: 0 12px; font-size: 14px; }
+  .note { font-size: 11.5px; }
+  .brand b { font-size: 17px; }
+  .cta { padding: 0 14px; font-size: 14px; }
+}
+</style>
+</head>
+<body>
+<a id="doaBack" href="/feina/" style="position:fixed;left:12px;bottom:12px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;min-height:44px;box-sizing:border-box;border-radius:999px;background:#121412;color:#F2F0EA;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.2)"><span style="width:10px;height:10px;background:#FF6A2B;display:block"></span>Tanca la demo · DOA Labs</a><script>document.getElementById("doaBack").addEventListener("click",function(e){e.preventDefault();try{window.close()}catch(x){}setTimeout(function(){location.href="/feina/"},200)});</script>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#inici" aria-label="Viure al Maresme, inici"><span class="ring" aria-hidden="true"></span><span><b>viure al maresme</b><small>Agència immobiliària</small></span></a>
+    <a class="cta" href="#valora">Valora casa teva gratis</a>
+  </header>
+
+  <section class="hero" id="inici">
+    <h1>6.000 € + IVA fixos, <em>valgui el que valgui la casa.</em></h1>
+    <p>Cobrem menys, però no fem menys. Tot el procés és digital i el segueixes des del teu portal. Fes scroll i prova-ho.</p>
+  </section>
+
+  <div class="stack">
+
+    <!-- 1 Estalvi -->
+    <article class="card c-green" style="--i:0" aria-labelledby="h-estalvi">
+      <div>
+        <span class="tag">Estalvi</span>
+        <h2 id="h-estalvi">Quant t'estalvies venent amb nosaltres?</h2>
+        <p class="lead">Mou el preu i tria la comissió que et cobraria una agència tradicional.</p>
+      </div>
+      <div class="panel">
+        <label class="f">Preu de venda: <span class="big" id="pPrice">400.000 €</span>
+          <input type="range" id="price" min="150000" max="1500000" step="10000" value="400000" aria-label="Preu de venda">
+        </label>
+        <div class="chips" role="group" aria-label="Comissió tradicional">
+          <button class="chip" type="button" data-pct="3" aria-pressed="false">3%</button>
+          <button class="chip" type="button" data-pct="4" aria-pressed="true">4%</button>
+          <button class="chip" type="button" data-pct="5" aria-pressed="false">5%</button>
+        </div>
+        <div class="row"><span class="ic" style="background:#F1F1F1">%</span><span><b>Agència tradicional</b><span class="s">Comissió sobre el preu</span></span><span class="end" id="trad">16.000 €</span></div>
+        <div class="row"><span class="ic" style="background:var(--green)">€</span><span><b>Viure al Maresme</b><span class="s">Tarifa fixa</span></span><span class="end">6.000 €</span></div>
+        <div class="row" style="background:var(--ink);color:#fff"><span><b>T'estalvies</b><span class="s" style="color:#cfcfcf" id="saveNote">sense IVA</span></span><span class="end big" id="save" style="font-size:30px">10.000 €</span></div>
+        <p class="note">Preus sense IVA.</p>
+      </div>
+    </article>
+
+    <!-- 2 Valoració -->
+    <article class="card c-sky" style="--i:1" id="valora" aria-labelledby="h-valora">
+      <div>
+        <span class="tag">Valoració</span>
+        <h2 id="h-valora">Quant val casa teva? Sense correu ni telèfon.</h2>
+        <p class="lead">Quatre dades i tens un rang orientatiu al moment. Sense crear cap compte.</p>
+      </div>
+      <form class="panel" id="vform">
+        <div class="grid2">
+          <label class="f">Municipi
+            <select id="town"></select>
+          </label>
+          <label class="f">Tipus
+            <select id="type">
+              <option value="1">Pis</option><option value="1.08">Àtic</option><option value="1.05">Dúplex</option><option value="0.95">Planta baixa</option>
+              <option value="1.15">Casa adossada</option><option value="1.18">Casa aparellada</option><option value="1.3">Casa aïllada</option>
+            </select>
+          </label>
+        </div>
+        <label class="f">Superfície construïda: <span id="pM2">90 m²</span>
+          <input type="range" id="m2" min="25" max="600" step="5" value="90" aria-label="Superfície en metres quadrats">
+        </label>
+        <div class="chips" role="group" aria-label="Estat">
+          <button class="chip st" type="button" data-k="0.85" aria-pressed="false">Per reformar</button>
+          <button class="chip st" type="button" data-k="1" aria-pressed="true">Bon estat</button>
+          <button class="chip st" type="button" data-k="1.12" aria-pressed="false">Reformat</button>
+        </div>
+        <div class="chips" role="group" aria-label="Extres">
+          <button class="chip ex" type="button" data-k="0.04" aria-pressed="false">Terrassa</button>
+          <button class="chip ex" type="button" data-k="0.03" aria-pressed="false">Pàrquing</button>
+          <button class="chip ex" type="button" data-k="0.06" aria-pressed="false">Piscina</button>
+          <button class="chip ex" type="button" data-k="0.08" aria-pressed="false">Vistes al mar</button>
+        </div>
+        <button class="btn" type="submit">Veure el rang</button>
+        <div id="range" aria-live="polite"></div>
+        <p class="note">Rang d'exemple per a la demo. L'eina real fa servir dades de mercat de cada municipi.</p>
+      </form>
+    </article>
+
+    <!-- 3 Portal -->
+    <article class="card c-deep" style="--i:2" aria-labelledby="h-portal">
+      <div>
+        <span class="tag">El teu portal</span>
+        <h2 id="h-portal">Segueix la venda des del mòbil.</h2>
+        <p class="lead">Una àrea privada on veus en quin punt està la venda, la documentació i tot el que passa.</p>
+      </div>
+      <div class="panel">
+        <div class="tabs" role="tablist" aria-label="Seccions del portal">
+          <button class="tab" role="tab" type="button" data-t="proces" aria-selected="true">Procés</button>
+          <button class="tab" role="tab" type="button" data-t="docs" aria-selected="false">Documentació</button>
+          <button class="tab" role="tab" type="button" data-t="visites" aria-selected="false">Visites</button>
+        </div>
+        <div id="pview" aria-live="polite"></div>
+      </div>
+    </article>
+
+    <!-- 4 Visites -->
+    <article class="card c-yellow" style="--i:3" aria-labelledby="h-vis">
+      <div>
+        <span class="tag">Visites i comentaris</span>
+        <h2 id="h-vis">Després de cada visita, saps què n'han pensat.</h2>
+        <p class="lead">No cal que truquis per saber com ha anat. Ho tens escrit al portal el mateix dia.</p>
+      </div>
+      <div class="panel">
+        <div class="row"><span class="ic" style="background:var(--yellow)" id="nVis">2</span><span><b>Visites aquesta setmana</b><span class="s">Pis a Sant Andreu de Llavaneres</span></span></div>
+        <div id="visits" style="display:flex;flex-direction:column;gap:10px"></div>
+        <button class="btn" type="button" id="addVisit">Simula una visita nova</button>
+      </div>
+    </article>
+
+    <!-- 5 Ofertes -->
+    <article class="card c-orange" style="--i:4" aria-labelledby="h-of">
+      <div>
+        <span class="tag">Oferta</span>
+        <h2 id="h-of">Cada oferta, per escrit i al teu portal.</h2>
+        <p class="lead">Quan arriba una oferta la veus al moment, amb les condicions per escrit. Tu decideixes; nosaltres t'ajudem a valorar-la.</p>
+      </div>
+      <div class="panel" id="offerPanel">
+        <div class="row"><span class="ic" style="background:var(--green)">€</span><span><b>Oferta rebuda</b><span class="s">Es publica al teu portal</span></span></div>
+        <div class="row"><span class="ic" style="background:var(--sky)">≡</span><span><b>Condicions per escrit</b><span class="s">Preu, termini i forma de pagament</span></span></div>
+        <div class="row"><span class="ic" style="background:var(--yellow)">✓</span><span><b>Tu decideixes</b><span class="s">Acceptar, contraoferta o rebutjar</span></span></div>
+        <button class="btn" type="button" id="newOffer">Simula una oferta</button>
+      </div>
+    </article>
+
+    <!-- 6 Arres -->
+    <article class="card c-red" style="--i:5" aria-labelledby="h-arr">
+      <div>
+        <span class="tag">Arres</span>
+        <h2 id="h-arr">Arres en 3 mesos com a màxim.</h2>
+        <p class="lead">Si en 3 mesos no hi ha arres, retirem la casa i no ens deus res. Tres mesos és el límit.</p>
+      </div>
+      <div class="panel">
+        <div class="tl" id="tl">
+          <div class="row"><span><b>Dia 1</b><span class="s">Casa publicada</span></span></div>
+          <div class="row"><span><b>Mes 1</b><span class="s">Visites i comentaris al portal</span></span></div>
+          <div class="row"><span><b>Mes 2</b><span class="s">Ofertes i negociació</span></span></div>
+          <div class="row"><span><b>Mes 3</b><span class="s">Arres signades, o retirem la casa sense cost</span></span></div>
+        </div>
+        <div class="btns"><button class="btn ghost" type="button" id="adv">Avança un mes</button><button class="btn" type="button" id="reset" style="background:rgba(0,0,0,.25)">Torna a començar</button></div>
+      </div>
+    </article>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var fmt = function(n){ return Math.round(n).toLocaleString("ca-ES").replace(/\s/g,".") + " €"; };
+  var $ = function(id){ return document.getElementById(id); };
+
+  // 1 savings
+  var pct = 4, price = $("price");
+  function calc(){
+    var p = +price.value, t = p * pct / 100, s = t - 6000;
+    $("pPrice").textContent = fmt(p); $("trad").textContent = fmt(t);
+    $("save").textContent = s > 0 ? fmt(s) : "0 €";
+    $("saveNote").textContent = s > 0 ? "sense IVA" : "amb aquest preu, una comissió del " + pct + "% surt més barata";
+  }
+  price.addEventListener("input", calc);
+  document.querySelectorAll("[data-pct]").forEach(function(b){ b.addEventListener("click", function(){
+    document.querySelectorAll("[data-pct]").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+    b.setAttribute("aria-pressed","true"); pct = +b.dataset.pct; calc(); }); });
+  calc();
+
+  // 2 valuation (example €/m² per town, demo only)
+  var towns = [["Alella",4300],["Arenys de Mar",2900],["Arenys de Munt",2500],["Cabrera de Mar",3600],["Cabrils",3700],["Caldes d'Estrac",3400],
+    ["Canet de Mar",2600],["el Masnou",3700],["Mataró",2500],["Montgat",3500],["Premià de Dalt",3100],["Premià de Mar",3200],
+    ["Sant Andreu de Llavaneres",3800],["Sant Vicenç de Montalt",3600],["Teià",3500],["Tiana",3600],["Vilassar de Dalt",3000],["Vilassar de Mar",3300]];
+  var sel = $("town");
+  towns.forEach(function(t, i){ var o = document.createElement("option"); o.value = t[1]; o.textContent = t[0]; if (i === 12) o.selected = true; sel.appendChild(o); });
+  var m2 = $("m2"); m2.addEventListener("input", function(){ $("pM2").textContent = m2.value + " m²"; });
+  document.querySelectorAll(".st").forEach(function(b){ b.addEventListener("click", function(){
+    document.querySelectorAll(".st").forEach(function(x){ x.setAttribute("aria-pressed","false"); }); b.setAttribute("aria-pressed","true"); }); });
+  document.querySelectorAll(".ex").forEach(function(b){ b.addEventListener("click", function(){
+    b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); }); });
+  $("vform").addEventListener("submit", function(e){
+    e.preventDefault();
+    var st = +document.querySelector(".st[aria-pressed=true]").dataset.k, ex = 1;
+    document.querySelectorAll(".ex[aria-pressed=true]").forEach(function(b){ ex += +b.dataset.k; });
+    var v = +sel.value * +m2.value * +$("type").value * st * ex;
+    var lo = Math.round(v * 0.93 / 1000) * 1000, hi = Math.round(v * 1.07 / 1000) * 1000;
+    $("range").innerHTML = '<div class="row fade" style="background:var(--ink);color:#fff"><span><b>Rang orientatiu</b><span class="s" style="color:#cfcfcf">' +
+      sel.options[sel.selectedIndex].text + " · " + m2.value + ' m²</span></span><span class="end" style="font-size:22px">' + fmt(lo) + " – " + fmt(hi) + "</span></div>";
+  });
+
+  // 3 portal
+  var docs = [["Nota simple", true], ["Certificat energètic", true], ["Cèdula d'habitabilitat", false], ["Últim rebut de l'IBI", false]];
+  var steps = [["Valoració", 2], ["Fotos i plànol", 2], ["Casa publicada", 2], ["Visites", 1], ["Ofertes", 0], ["Arres", 0], ["Escriptura", 0]];
+  var tab = "proces";
+  function chk(on){ return '<span class="check ' + (on ? "ok" : "wait") + '">' + (on ? "✓" : "·") + "</span>"; }
+  function portal(){
+    var h = "";
+    if (tab === "proces") steps.forEach(function(s){ h += '<div class="row">' + chk(s[1] === 2) + '<span><b>' + s[0] + '</b><span class="s">' + (s[1] === 2 ? "Fet" : s[1] === 1 ? "En curs" : "Pendent") + "</span></span></div>"; });
+    if (tab === "docs") docs.forEach(function(d, i){ h += '<div class="row">' + chk(d[1]) + '<span><b>' + d[0] + '</b><span class="s">' + (d[1] ? "Pujat" : "Pendent") + "</span></span>" +
+      (d[1] ? "" : '<button class="btn" type="button" data-up="' + i + '" style="margin-left:auto;min-height:38px;padding:0 14px">Puja-la</button>') + "</div>"; });
+    if (tab === "visites") visits.slice(0, 3).forEach(function(v){ h += '<div class="row"><span><b>' + v[0] + '</b><span class="s">' + v[1] + "</span></span></div>"; });
+    $("pview").innerHTML = h; $("pview").classList.toggle("two", tab === "proces");
+    document.querySelectorAll("[data-up]").forEach(function(b){ b.addEventListener("click", function(){ docs[+b.dataset.up][1] = true; portal(); }); });
+  }
+  document.querySelectorAll(".tab").forEach(function(b){ b.addEventListener("click", function(){
+    document.querySelectorAll(".tab").forEach(function(x){ x.setAttribute("aria-selected","false"); }); b.setAttribute("aria-selected","true"); tab = b.dataset.t; portal(); }); });
+
+  // 4 visits
+  var visits = [["Dissabte · Parella de Barcelona", "«Els encanta la terrassa. Dubten per la cuina, potser la reformarien.»"],
+                ["Dijous · Família del poble", "«Busquen 3 habitacions i és just el que volen. Volen tornar a veure-la.»"]];
+  var pool = [["Diumenge · Comprador d'Alemanya", "«Ve per les vistes. Pregunta per les despeses de comunitat.»"],
+              ["Dimarts · Parella jove", "«Els agrada molt, però han de parlar amb el banc.»"],
+              ["Divendres · Inversor de Mataró", "«Vol saber si es pot llogar per temporada.»"]];
+  function drawVisits(){
+    $("nVis").textContent = visits.length;
+    $("visits").innerHTML = visits.slice(0, 3).map(function(v, i){ return '<div class="row' + (i === 0 ? " fade" : "") + '"><span><b>' + v[0] + '</b><span class="s">' + v[1] + "</span></span></div>"; }).join("");
+    $("addVisit").disabled = pool.length === 0; if (tab === "visites") portal();
+  }
+  $("addVisit").addEventListener("click", function(){ if (pool.length) { visits.unshift(pool.shift()); drawVisits(); } });
+  drawVisits(); portal();
+
+  // 5 offers
+  $("newOffer").addEventListener("click", function(){
+    var p = $("offerPanel");
+    p.innerHTML = '<div class="row fade" style="flex-direction:column;align-items:stretch;gap:10px">' +
+      '<span style="display:flex;justify-content:space-between;gap:10px"><b>Oferta 1 · Parella de Barcelona</b><span class="end" style="font-size:22px">372.000 €</span></span>' +
+      '<span class="s">Termini: arres en 15 dies · escriptura en 3 mesos</span><span class="s">Pagament: hipoteca preaprovada + 10% d\'arres</span></div>' +
+      '<div class="btns" id="obtns"><button class="btn" type="button" data-a="ok">Acceptar</button><button class="btn ghost" type="button" data-a="co">Contraoferta</button><button class="btn ghost" type="button" data-a="no">Rebutjar</button></div><div id="ores" aria-live="polite"></div>';
+    p.querySelectorAll("[data-a]").forEach(function(b){ b.addEventListener("click", function(){
+      var r = $("ores"); $("obtns").querySelectorAll("button").forEach(function(x){ x.disabled = true; });
+      if (b.dataset.a === "ok") r.innerHTML = '<div class="row fade" style="background:var(--deep);color:#fff"><b>Acceptada. Preparem el contracte d\'arres.</b></div>';
+      if (b.dataset.a === "no") r.innerHTML = '<div class="row fade"><b>Rebutjada. Seguim amb les visites.</b></div>';
+      if (b.dataset.a === "co") { r.innerHTML = '<div class="row fade"><b>Contraoferta enviada: 385.000 €</b></div>';
+        setTimeout(function(){ r.innerHTML += '<div class="row fade" style="margin-top:10px;background:var(--deep);color:#fff"><b>El comprador respon: acceptem 380.000 €.</b></div>'; }, 1300); }
+    }); });
+  });
+
+  // 6 timeline
+  var month = 0, rows = document.querySelectorAll("#tl .row");
+  function tl(){ rows.forEach(function(r, i){ r.classList.toggle("done", i < month); r.classList.toggle("now", i === month); }); $("adv").disabled = month >= 3;
+    if (month >= 3) rows[3].querySelector(".s").textContent = "Arres signades ✓"; else rows[3].querySelector(".s").textContent = "Arres signades, o retirem la casa sense cost"; }
+  $("adv").addEventListener("click", function(){ month = Math.min(3, month + 1); tl(); });
+  $("reset").addEventListener("click", function(){ month = 0; tl(); });
+  tl();
+
+  // only stick cards that fit the screen
+  function fit(){ document.querySelectorAll(".card").forEach(function(c){ c.classList.remove("no-stick"); if (c.offsetHeight > innerHeight - 90) c.classList.add("no-stick"); }); }
+  addEventListener("resize", fit); fit();
+})();
+</script>
+</body>
+</html>
