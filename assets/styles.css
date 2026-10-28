@@ -56,7 +56,12 @@ h1, h2, h3 { margin: 0; font-weight: 800; }
 /* Header */
 .site-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding-block: 22px; }
 .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-size: 21px; font-weight: 800; letter-spacing: -0.02em; }
-.logo::before { content: ""; width: 14px; height: 14px; background: var(--accent); display: block; }
+.mk { display: inline-flex; gap: 3px; }
+.mk i { font-style: normal; width: 26px; height: 26px; border-radius: 5px; box-sizing: border-box; border: 1.5px solid currentColor; display: inline-flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 800; line-height: 1; }
+.mk i.o { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+.mk i.a { background: var(--ink); border-color: var(--ink); color: var(--on-dark); }
+.dark .mk i.a, .site-footer .mk i.a { background: var(--on-dark); border-color: var(--on-dark); color: var(--ink); }
+.logo .lw { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
 .dark .logo, .dark .logo:hover { color: var(--on-dark); }
 .nav { display: flex; flex-wrap: wrap; gap: 8px 28px; font-size: 15px; font-weight: 500; }
 .nav a { text-decoration: none; }
@@ -256,7 +261,7 @@ a.card .mono { margin-top: auto; }
 .site-footer a { color: var(--on-dark-muted); }
 .site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .site-footer .logo { font-size: 18px; color: var(--on-dark); }
-.site-footer .logo::before { width: 12px; height: 12px; }
+.site-footer .mk i { width: 22px; height: 22px; font-size: 14px; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .shot { transition: none; } }
 
@@ -266,3 +271,8 @@ a.card .mono { margin-top: auto; }
 .steps-doa li b { font-size: 26px; }
 .steps-doa li p { font-size: 17px; }
 .split .h2 { margin-bottom: 4px; }
+
+/* Photos */
+.photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; margin-top: 48px; }
+.photo { margin: 0; }
+.photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 20px; background: var(--lines); }
