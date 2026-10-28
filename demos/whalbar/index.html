@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Whalbar · demo</title>
+<meta name="description" content="Whalbar: envia la foto de l'albarà per WhatsApp i en uns segons saps quin proveïdor t'ha apujat el preu. Demo interactiva d'un projecte de DOA Labs.">
+<meta name="theme-color" content="#0F172A">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: a hospitality product page — slate desk, one green action per screen, a real WhatsApp chat you can drive */
+:root{
+  --bg:#FFFFFF; --subtle:#F8FAFC; --subtle2:#F1F5F9; --surface:#FFFFFF; --ink:#0F172A; --muted:#475569; --line:#E2E8F0;
+  --green:#62B42C; --green-dark:#4A8F1E; --green-soft:#EAF6E1; --green-ink:#2F6B10;
+  --amber:#F5A623; --amber-soft:#FEF3DC; --amber-ink:#8A5A00;
+  --red:#DC2626; --red-soft:#FDE8E8; --red-ink:#B91C1C;
+  --bubble-out:#E7FFDB; --chat-bg:#EFEAE2; --phone:#0F172A;
+  --shadow:0 1px 0 rgba(15,23,42,.05),0 12px 32px rgba(15,23,42,.08);
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;margin:0;font-feature-settings:"tnum" 1}
+h1,h2,h3{line-height:1.08;margin:0;text-wrap:balance;font-weight:800;letter-spacing:-.025em}
+h1{font-size:clamp(38px,6vw,64px)}
+h2{font-size:clamp(28px,3.8vw,42px)}
+h3{font-size:20px;font-weight:700;letter-spacing:-.01em}
+p{margin:0;text-wrap:pretty}
+a{color:var(--green-ink)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+.eyebrow{font-size:13px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.lead{font-size:clamp(18px,2.1vw,20px);color:var(--muted);max-width:62ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 24px;border-radius:14px;font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-family:inherit}
+.btn.go{background:var(--green);border-color:var(--green);color:#fff}
+.btn.go:hover{background:var(--green-dark);border-color:var(--green-dark)}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600;background:var(--green-soft);color:var(--green-ink)}
+.dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto;display:inline-block}
+.ic{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+/* top */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;font-size:24px;letter-spacing:-.03em}
+.brand .stop{color:var(--green)}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;padding-block:32px 72px}
+.hero .txt{display:flex;flex-direction:column;gap:22px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.checks{display:flex;gap:10px 22px;flex-wrap:wrap;color:var(--muted);font-size:15px}
+.checks span{display:inline-flex;align-items:center;gap:8px}
+.visual{position:relative}
+.phone{position:relative;width:min(100%,320px);margin:0 auto;border:10px solid var(--phone);border-radius:44px;overflow:hidden;box-shadow:var(--shadow);background:#fff;aspect-ratio:390/720}
+.phone img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.sticker{position:absolute;padding:10px 16px;border-radius:14px;font-weight:700;font-size:15px;box-shadow:var(--shadow);display:flex;align-items:center;gap:8px;max-width:230px}
+.sticker.s1{top:14%;left:-6%;background:var(--red-soft);color:var(--red-ink);transform:rotate(-3deg)}
+.sticker.s2{bottom:12%;right:-6%;background:var(--green-soft);color:var(--green-ink);transform:rotate(2deg)}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat{border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:6px;background:var(--subtle2)}
+.stat b{font-size:36px;line-height:1;font-weight:800;letter-spacing:-.03em}
+.stat span{font-size:15px;font-weight:600}
+.stat small{font-size:12px;color:var(--muted)}
+.stat.g{background:var(--green-soft);color:var(--green-ink)} .stat.a{background:var(--amber-soft);color:var(--amber-ink)} .stat.r{background:var(--red-soft);color:var(--red-ink)}
+/* cards */
+.head{display:flex;flex-direction:column;gap:14px;max-width:760px;margin-bottom:36px}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.box{background:var(--surface);border:1.5px solid var(--line);border-radius:20px;padding:26px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.box p{color:var(--muted)}
+/* demo */
+.demo{background:var(--subtle2);border-radius:28px;padding:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.demo .side{display:flex;flex-direction:column;gap:18px}
+.picker{display:flex;flex-direction:column;gap:10px}
+.pick{display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:#fff;cursor:pointer;font:inherit;color:var(--ink);min-height:56px}
+.pick:hover{border-color:var(--green)}
+.pick[aria-pressed="true"]{border-color:var(--green);background:var(--green-soft)}
+.pick small{display:block;color:var(--muted);font-size:13px}
+.pick .go{font-size:13px;font-weight:700;color:var(--green-ink);white-space:nowrap}
+.total{background:#fff;border:1.5px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:6px}
+.total b{font-size:34px;font-weight:800;letter-spacing:-.03em;color:var(--red-ink);line-height:1.1}
+.total small{color:var(--muted)}
+/* phone chat */
+.chatphone{width:min(100%,360px);margin:0 auto;border:10px solid var(--phone);border-radius:44px;overflow:hidden;background:var(--chat-bg);box-shadow:var(--shadow);display:flex;flex-direction:column;height:640px}
+.chathead{background:#fff;display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.chathead .av{width:36px;height:36px;border-radius:50%;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.chathead b{display:block;font-size:15px}
+.chathead small{color:var(--muted);font-size:12px}
+.chat{flex:1;overflow-y:auto;padding:14px 10px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.msg{max-width:86%;padding:8px 10px 18px;border-radius:12px;font-size:14px;line-height:1.4;position:relative;box-shadow:0 1px 0 rgba(0,0,0,.06)}
+.msg.in{background:#fff;align-self:flex-start;border-top-left-radius:4px}
+.msg.out{background:var(--bubble-out);align-self:flex-end;border-top-right-radius:4px}
+.msg time{position:absolute;right:8px;bottom:3px;font-size:10.5px;color:#64748B}
+.paper{background:#FBFAF5;border:1px solid #D9D3C2;border-radius:6px;padding:10px;font-family:ui-monospace,Menlo,monospace;font-size:11px;line-height:1.5;color:#334155;transform:rotate(-1.2deg);margin-bottom:6px;box-shadow:inset 0 0 18px rgba(120,100,60,.12)}
+.paper b{font-size:11.5px}
+.line{display:flex;justify-content:space-between;gap:10px;font-size:13px}
+.line .n{display:flex;align-items:center;gap:6px}
+.up{color:var(--red-ink);font-weight:700;white-space:nowrap} .ok{color:#475569;white-space:nowrap}
+.alert{margin-top:8px;padding:8px 10px;border-radius:8px;background:var(--red-soft);color:var(--red-ink);font-weight:600;font-size:13px}
+.alert.fine{background:var(--green-soft);color:var(--green-ink)}
+.copy{margin-top:8px;width:100%;min-height:40px;border-radius:8px;border:0;background:var(--green);color:#fff;font:600 13px/1 var(--sans);cursor:pointer}
+.typing{display:inline-flex;gap:4px;padding:12px 14px}
+.typing i{width:7px;height:7px;border-radius:50%;background:#94A3B8;animation:b 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s} .typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.chatfoot{background:#fff;padding:10px;display:flex;gap:8px;align-items:center;border-top:1px solid var(--line)}
+.chatfoot .box-in{flex:1;background:var(--subtle2);border-radius:999px;padding:9px 14px;font-size:13px;color:#64748B}
+.send{flex:0 0 38px;width:38px;height:38px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center}
+.draft{background:#fff;border:1.5px dashed var(--green);border-radius:14px;padding:16px;font-size:14px;color:var(--ink);white-space:pre-line}
+/* panel */
+.panel{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:44px;align-items:center}
+.shot{border-radius:16px;overflow:hidden;border:1.5px solid var(--line);box-shadow:var(--shadow);background:#fff}
+.shot img{display:block;width:100%;height:auto}
+.panel ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.panel li{display:flex;gap:10px;color:var(--muted)}
+.panel li::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--green);margin-top:9px;flex:0 0 auto}
+/* features */
+.feat{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.f{border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:8px;background:var(--subtle2)}
+.f h3{font-size:17px}
+.f p{font-size:15px;color:var(--muted)}
+/* close */
+.close{background:var(--ink);color:#fff;border-radius:28px;padding:56px;display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+.close .lead{color:#CBD5E1}
+footer{padding-block:40px 80px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:var(--ink)}
+.note{font-size:13px;color:var(--muted)}
+@media (max-width:900px){
+  .hero,.demo,.panel{grid-template-columns:minmax(0,1fr)}
+  .stats,.feat{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cards3{grid-template-columns:minmax(0,1fr)}
+  .demo,.close{padding:24px}
+  .sticker.s1{left:0} .sticker.s2{right:0}
+  section{padding-block:56px}
+  .chatphone{height:600px}
+}
+@media (max-width:480px){ .stats,.feat{grid-template-columns:minmax(0,1fr)} }
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .typing i{animation:none} .chat{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<a href="/feina/" target="_top" style="position:fixed;left:12px;bottom:12px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;min-height:44px;box-sizing:border-box;border-radius:999px;background:#121412;color:#F2F0EA;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.2)"><span style="width:10px;height:10px;background:#FF6A2B;display:block"></span>Demo · Tornar a DOA Labs</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="#F5A623" stroke-width="4" stroke-dasharray="62 14" stroke-linecap="round" transform="rotate(-60 16 16)"/><path d="M10.5 16.5l4 4 8-9" fill="none" stroke="#62B42C" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#inici" aria-label="Whalbar, inici"><svg width="32" height="32" aria-hidden="true"><use href="#logo"/></svg><span>whalbar<span class="stop">.</span></span></a>
+    <span class="pill"><span class="dot" style="background:var(--green)"></span>En marxa · whalbar.com</span>
+  </header>
+
+  <div class="hero" id="inici">
+    <div class="txt">
+      <span class="eyebrow">El teu assessor de compres a WhatsApp · Hostaleria</span>
+      <h1>Deixa de pagar de més per l'oli, el cafè i la cervesa.</h1>
+      <p class="lead">Sense instal·lar res i sense canviar de proveïdor. Quan arriba el repartidor, fas una foto de l'albarà i l'envies per WhatsApp. En uns segons saps què t'han apujat i quant.</p>
+      <div class="ctas">
+        <a class="btn go" href="#demo">Prova-ho amb un albarà</a>
+        <a class="btn" href="#com">Com funciona</a>
+      </div>
+      <div class="checks">
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>15 albarans gratis sense targeta</span>
+        <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2M9 2h6"/></svg>Resposta en menys d'un minut</span>
+      </div>
+    </div>
+    <div class="visual">
+      <div class="phone"><img src="/assets/shots/whalbar-chat.jpg" alt="Xat de WhatsApp amb Whalbar: albarà analitzat amb un sobrecost de 39 euros"></div>
+      <div class="sticker s1">+39 € detectats</div>
+      <div class="sticker s2">Albarà llegit en segons</div>
+    </div>
+  </div>
+</div>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat g"><b>3–5 s</b><span>de la foto al desglossament</span><small>per albarà, també arrugat</small></div>
+      <div class="stat a"><b>15</b><span>albarans gratis per provar-lo</span><small>sense targeta</small></div>
+      <div class="stat"><b>3,99 €</b><span>al mes, pagant l'any</span><small>preu a whalbar.com</small></div>
+      <div class="stat r"><b>0</b><span>apps per instal·lar</span><small>tot passa per WhatsApp</small></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Per què</span>
+      <h2>Ningú revisa els albarans</h2>
+      <p class="lead">Les comandes arriben enmig del servei. L'albarà es firma, es plega i va al calaix. Un proveïdor puja uns cèntims el barril o la caixa, i ningú se n'adona fins que el marge del mes ha desaparegut.</p>
+    </div>
+    <div class="cards3">
+      <div class="box"><span class="ic" style="background:var(--red-soft);color:var(--red-ink)" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></span><h3>Pujades petites, cada setmana</h3><p>Uns cèntims per quilo o per caixa no es veuen. A final de mes són desenes d'euros.</p></div>
+      <div class="box"><span class="ic" style="background:var(--amber-soft);color:var(--amber-ink)" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><h3>No hi ha temps per comparar</h3><p>Ningú obre un full de càlcul entre el servei del migdia i el del sopar.</p></div>
+      <div class="box"><span class="ic" style="background:var(--green-soft);color:var(--green-ink)" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></span><h3>Els programes de gestió no es fan servir</h3><p>Demanen entrar dades a mà. WhatsApp, en canvi, ja el fa servir tot l'equip.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="demo">
+      <div class="side">
+        <span class="eyebrow">Prova-ho</span>
+        <h2>Envia un albarà i mira què passa</h2>
+        <p class="lead">Tria un albarà d'exemple. S'envia al xat i Whalbar el llegeix, el compara amb el que pagaves abans i amb la mitjana de la comarca, i et diu què ha pujat.</p>
+        <div class="picker" id="picker" role="group" aria-label="Albarans d'exemple"></div>
+        <div class="total" aria-live="polite">
+          <span class="eyebrow">Aquest mes t'han cobrat de més</span>
+          <b id="sum">0 €</b>
+          <small id="sumNote">Envia un albarà per començar.</small>
+        </div>
+        <div id="draftWrap" hidden>
+          <span class="eyebrow">Missatge per al comercial</span>
+          <div class="draft" id="draft" style="margin-top:10px"></div>
+        </div>
+        <p class="note">Dades d'exemple. A l'eina real, cada línia es compara amb el teu històric i amb la mitjana de la comarca, en €/kg o €/L.</p>
+      </div>
+      <div>
+        <div class="chatphone">
+          <div class="chathead">
+            <span class="av"><svg width="26" height="26" aria-hidden="true"><use href="#logo"/></svg></span>
+            <span><b>whalbar.</b><small id="status">en línia</small></span>
+          </div>
+          <div class="chat" id="chat" aria-live="polite" aria-label="Conversa amb Whalbar">
+            <div class="msg in">Hola! Envia'm la foto de l'albarà quan arribi el repartidor i et dic si et cobren de més.<time>12:01</time></div>
+          </div>
+          <div class="chatfoot"><span class="box-in">Missatge</span><span class="send" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="com" style="background:var(--subtle)">
+  <div class="wrap">
+    <div class="panel">
+      <div class="shot"><img src="/assets/shots/whalbar-panell.jpg" alt="Panell de Whalbar: aquest mes t'han cobrat 125 euros de més, amb les tres línies on més s'ha pagat"></div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <span class="eyebrow">El panell</span>
+        <h2>Tot el mes, en una pàgina</h2>
+        <ul>
+          <li>Quant t'han cobrat de més aquest mes i quant pots recuperar negociant.</li>
+          <li>Els productes on més pagues de més, per proveïdor.</li>
+          <li>El missatge per al comercial, a punt per copiar.</li>
+          <li>S'obre sense contrasenya i cada dilluns arriba el resum de la setmana.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Què fa</span>
+      <h2>El que faria un encarregat de compres, per WhatsApp</h2>
+    </div>
+    <div class="feat">
+      <div class="f"><h3>Llegeix l'albarà</h3><p>Arrugat, doblegat o amb gargots de boli.</p></div>
+      <div class="f"><h3>Semàfor de preus</h3><p>Cada línia contra el teu històric i la mitjana de la zona.</p></div>
+      <div class="f"><h3>Albarà contra factura</h3><p>Pagues el que ha arribat de debò.</p></div>
+      <div class="f"><h3>Envasos amb dipòsit</h3><p>Barrils i caixes que t'han de retornar.</p></div>
+      <div class="f"><h3>Reclamació a punt</h3><p>Un missatge per al comercial, amb les xifres.</p></div>
+      <div class="f"><h3>Resum del dilluns</h3><p>Què has comprat i quant t'ha costat.</p></div>
+      <div class="f"><h3>Sense app</h3><p>Ni registre ni ordinador. Només una foto.</p></div>
+      <div class="f"><h3>Dades privades</h3><p>Els teus preus no es comparteixen amb ningú.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="close">
+      <span class="eyebrow" style="color:#94A3B8">Un projecte de DOA Labs</span>
+      <h2>Al teu negoci, quin paper et fa perdre diners?</h2>
+      <p class="lead">Albarans, factures, fulls de reserva, tiquets. El mateix sistema serveix per als teus papers: envies el que ja tens i et diu què necessita una decisió.</p>
+      <div class="ctas"><a class="btn go" href="/cita/" target="_top">Demana una cita</a><a class="btn" href="https://whalbar.com" rel="noopener">Ves a whalbar.com</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span><b>Whalbar</b> · Un projecte de DOA Labs · Sant Andreu de Llavaneres</span>
+    <span>Demo amb dades d'exemple.</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var NOTES = [
+    {id:"carn", sup:"Càrnies del Vallès", ref:"ALB-CV-2218", lines:[
+      {n:"Llom de porc", q:"6 kg", unit:"€/kg", paid:7.90, ref:6.40},
+      {n:"Pit de pollastre", q:"4 kg", unit:"€/kg", paid:6.20, ref:6.15},
+      {n:"Botifarra", q:"3 kg", unit:"€/kg", paid:8.40, ref:8.40}]},
+    {id:"cafe", sup:"Cafès Costa Brava", ref:"ALB-CCB-0981", lines:[
+      {n:"Cafè en gra 1 kg", q:"6 kg", unit:"€/kg", paid:18.90, ref:16.20},
+      {n:"Sucre en sobres", q:"1 caixa", unit:"€/caixa", paid:9.80, ref:9.80},
+      {n:"Llet sencera 1 L", q:"12 L", unit:"€/L", paid:0.98, ref:0.97}]},
+    {id:"aigua", sup:"Begudes Maresme", ref:"ALB-BM-4410", lines:[
+      {n:"Aigua 1,5 L (caixa 6)", q:"12 caixes", unit:"€/caixa", paid:4.20, ref:3.30},
+      {n:"Barril cervesa 30 L", q:"2 barrils", unit:"€/barril", paid:96.00, ref:96.00},
+      {n:"Refrescos 24 u", q:"3 caixes", unit:"€/caixa", paid:17.50, ref:17.40}]}
+  ];
+  var chat = document.getElementById("chat"), picker = document.getElementById("picker"), status = document.getElementById("status");
+  var sumEl = document.getElementById("sum"), sumNote = document.getElementById("sumNote");
+  var draftWrap = document.getElementById("draftWrap"), draft = document.getElementById("draft");
+  var done = {}, total = 0, busy = false, minute = 4;
+  function mk(t,c,x){var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e;}
+  function eur(v){return v.toFixed(2).replace(".",",")+" €";}
+  function qty(q){return parseFloat(q.replace(",","."))||1;}
+  function time(){minute++; return "12:"+(minute<10?"0":"")+minute;}
+  function scroll(){chat.scrollTop = chat.scrollHeight;}
+  function bubble(dir, nodes){var m=mk("div","msg "+dir); nodes.forEach(function(n){m.appendChild(n);}); m.appendChild(mk("time",null,time())); chat.appendChild(m); scroll(); return m;}
+
+  NOTES.forEach(function(nt){
+    var b = mk("button","pick"); b.type="button"; b.setAttribute("aria-pressed","false");
+    var l = mk("span"); l.appendChild(mk("b",null,nt.sup)); l.appendChild(mk("small",null,nt.lines.length+" línies · "+nt.ref));
+    b.appendChild(l); b.appendChild(mk("span","go","Envia la foto →"));
+    b.addEventListener("click", function(){ send(nt,b); });
+    picker.appendChild(b);
+  });
+
+  function send(nt,btn){
+    if(busy) return;
+    if(done[nt.id]){ btn.querySelector(".go").textContent = "Ja enviat"; return; }
+    busy = true; btn.setAttribute("aria-pressed","true");
+    var paper = mk("div","paper");
+    paper.appendChild(mk("b",null,"ALBARÀ "+nt.ref)); paper.appendChild(document.createElement("br"));
+    paper.appendChild(document.createTextNode(nt.sup));
+    nt.lines.forEach(function(x){ paper.appendChild(document.createElement("br")); paper.appendChild(document.createTextNode(x.q+"  "+x.n+"  "+eur(x.paid))); });
+    bubble("out",[paper, document.createTextNode("Ha arribat el repartidor")]);
+    status.textContent = "escrivint…";
+    var t = mk("div","msg in typing"); t.innerHTML = "<i></i><i></i><i></i>"; t.setAttribute("aria-label","Whalbar està escrivint");
+    setTimeout(function(){ chat.appendChild(t); scroll(); }, 400);
+    setTimeout(function(){ t.remove(); status.textContent = "en línia"; reply(nt); busy = false; }, 2200);
+  }
+
+  function reply(nt){
+    var over = 0, nodes = [], worst = null;
+    nodes.push(mk("b",null,"Albarà "+nt.ref+" · analitzat"));
+    nt.lines.forEach(function(x){
+      var extra = (x.paid - x.ref) * qty(x.q);
+      var pct = Math.round((x.paid/x.ref - 1)*100);
+      var row = mk("div","line");
+      var nm = mk("span","n"); var d = mk("span","dot"); d.style.background = pct>=3 ? "var(--red)" : "var(--green)";
+      nm.appendChild(d); nm.appendChild(document.createTextNode(x.n));
+      row.appendChild(nm);
+      row.appendChild(mk("span", pct>=3?"up":"ok", pct>=3 ? "+"+pct+"%" : "en preu"));
+      nodes.push(row);
+      if(pct>=3){ over += extra; if(!worst || extra > worst.extra) worst = {x:x, extra:extra, pct:pct}; }
+    });
+    over = Math.round(over);
+    if(over>0){
+      var a = mk("div","alert"); a.textContent = "Sobrecost detectat: +"+over+" €";
+      nodes.push(a);
+      var c = mk("button","copy","Prepara el missatge per al comercial"); c.type="button";
+      c.addEventListener("click", function(){ showDraft(nt, worst); });
+      nodes.push(c);
+    } else {
+      var f = mk("div","alert fine"); f.textContent = "Tot en preu. Bona compra."; nodes.push(f);
+    }
+    bubble("in", nodes);
+    done[nt.id] = true; total += over;
+    sumEl.textContent = total + " €";
+    var n = Object.keys(done).length;
+    sumNote.textContent = n + (n===1?" albarà revisat":" albarans revisats") + ". Negociant, ho pots recuperar.";
+  }
+
+  function showDraft(nt, w){
+    var text = "Hola,\n\nAl darrer albarà ("+nt.ref+") el "+w.x.n.toLowerCase()+" surt a "+eur(w.x.paid)+" ("+w.x.unit.replace("€/","per ")+"), un "+w.pct+"% més que el que pagava fins ara ("+eur(w.x.ref)+").\n\nEm podeu mantenir el preu anterior? Si no, haurem de mirar alternatives.\n\nGràcies.";
+    draft.textContent = text; draftWrap.hidden = false;
+    try { if (navigator.clipboard) navigator.clipboard.writeText(text).catch(function(){}); } catch(e) {}
+    draftWrap.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"nearest"});
+  }
+})();
+</script>
+</body>
+</html>

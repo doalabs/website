@@ -6,7 +6,7 @@
    shot: image in /assets/shots/. Empty shot = dark tile with the name.
    demo: optional link to a live demo hosted in /demos/<slug>/; the card opens it. */
 window.DOA_PROJECTS = [
-  { slug: "whalbar", name: "Whalbar", kind: "Agents i eines amb IA", format: "mobil", sector: "Hostaleria", status: "En marxa", featured: true, page: "/feina/whalbar/",
+  { slug: "whalbar", name: "Whalbar", kind: "Agents i eines amb IA", format: "mobil", sector: "Hostaleria", status: "En marxa", featured: true, page: "/feina/whalbar/", demo: "/demos/whalbar/",
     line: "Un agent que viu a WhatsApp: el restaurador envia la foto de l'albarà i en uns segons sap quin proveïdor li ha apujat el preu.",
     shot: "/assets/shots/whalbar-chat.jpg" },
   { slug: "cami-al-14", name: "Camí al 14", kind: "Acadèmies en línia", format: "mobil", sector: "Formació", status: "En desenvolupament", featured: true, demo: "/demos/cami-al-14/",
@@ -18,7 +18,7 @@ window.DOA_PROJECTS = [
   { slug: "daniela-meriuta", name: "Daniela Meriuta", kind: "Webs que porten clients", format: "web", sector: "Immobiliari", status: "En marxa", featured: true,
     line: "Per a una assessora immobiliària de luxe: web per a compradors internacionals, generació de contactes i processos automatitzats.",
     shot: "/assets/shots/daniela-meriuta.jpg" },
-  { slug: "3-viles", name: "Club Bàsquet 3 Viles", kind: "Eines de gestió a mida", format: "mobil", sector: "Clubs i entitats", status: "En desenvolupament", featured: true,
+  { slug: "3-viles", name: "Club Bàsquet 3 Viles", kind: "Fidelització i ingressos", format: "mobil", sector: "Clubs i entitats", status: "En desenvolupament", featured: true, demo: "/demos/carnet-fan/",
     line: "Per a un club de bàsquet: tauler de gestió (quotes, pressupost, subvencions, botiga) i carnets de fan al mòbil amb descomptes al comerç local.",
     shot: "/assets/shots/3-viles-fan.jpg" },
   { slug: "swishcoach", name: "SwishCoach", kind: "Agents i eines amb IA", format: "mobil", sector: "Esport", status: "En marxa", featured: true,

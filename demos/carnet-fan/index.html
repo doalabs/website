@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Carnet de fan · demo</title>
+<meta name="description" content="Carnets de fan al mòbil per a clubs esportius: una nova font d'ingressos per al club i descomptes als comerços del poble. Demo interactiva d'un projecte de DOA Labs.">
+<meta name="theme-color" content="#062B6E">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a club matchday programme — navy pitch, red stripe, a card you can hold, a calculator the board can use */
+:root{
+  --navy:#062B6E; --navy-2:#0A3A8C; --navy-soft:#E6ECF7; --red:#E1121B; --red-soft:#FCE7E8; --red-ink:#B00E16;
+  --bg:#FFFFFF; --subtle:#F4F6FA; --ink:#0B1530; --muted:#4A5571; --line:#DCE2EE; --green:#16A34A; --green-soft:#DCFCE7; --green-ink:#166534;
+  --shadow:0 1px 0 rgba(11,21,48,.05),0 14px 34px rgba(11,21,48,.10);
+  --display:'Barlow Condensed','Arial Narrow',sans-serif; --sans:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:18px;line-height:1.55;margin:0}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:.95;margin:0;text-transform:uppercase;letter-spacing:.005em;text-wrap:balance}
+h1{font-size:clamp(48px,8vw,92px)}
+h2{font-size:clamp(36px,5vw,56px)}
+h3{font-size:26px}
+p{margin:0;text-wrap:pretty}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+section{padding-block:76px}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.lead{font-size:clamp(18px,2.1vw,21px);color:var(--muted);max-width:60ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 26px;border-radius:8px;font-weight:700;font-size:17px;text-decoration:none;border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-family:inherit}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.white{background:#fff;border-color:#fff;color:var(--navy)}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.7);color:#fff}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:0 0 auto}
+/* hero band */
+.band{background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.band::after{content:"";position:absolute;right:-120px;bottom:-140px;width:420px;height:420px;background:var(--red);transform:rotate(28deg);opacity:.95}
+.band .wrap{position:relative;z-index:1}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:20px}
+.brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none}
+.brand .crest{width:44px;height:44px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:20px;border:3px solid var(--red)}
+.brand b{font-family:var(--display);font-size:24px;text-transform:uppercase;letter-spacing:.02em}
+.brand small{display:block;font-size:12px;opacity:.8;font-weight:600}
+.band .pill{background:rgba(255,255,255,.12);color:#fff}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center;padding-block:28px 84px}
+.hero .txt{display:flex;flex-direction:column;gap:22px}
+.hero .lead{color:#D6DEF0}
+.hero h1 em{font-style:normal;color:var(--red);background:#fff;padding:0 .12em}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.phone{position:relative;width:min(100%,310px);margin:0 auto;border:10px solid #000;border-radius:44px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.35);background:#fff;aspect-ratio:470/946}
+.phone img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+/* who wins */
+.head{display:flex;flex-direction:column;gap:14px;max-width:780px;margin-bottom:36px}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.box{background:#fff;border:2px solid var(--line);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.box p{color:var(--muted)}
+.box .tag{align-self:flex-start;font-family:var(--display);font-size:18px;font-weight:800;text-transform:uppercase;padding:4px 12px;border-radius:6px;color:#fff}
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;counter-reset:s}
+.step{background:var(--subtle);border-radius:14px;padding:26px;display:flex;flex-direction:column;gap:10px}
+.step b{font-family:var(--display);font-size:56px;line-height:1;color:var(--red)}
+.step p{color:var(--muted)}
+/* demo card */
+.demo{background:var(--subtle);border-radius:22px;padding:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:44px;align-items:center}
+.demo .side{display:flex;flex-direction:column;gap:18px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-weight:700;font-size:15px}
+.field input{min-height:48px;border-radius:8px;border:2px solid var(--line);padding:10px 14px;font:inherit;background:#fff;color:var(--ink)}
+.cardstage{perspective:1400px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.fan{position:relative;width:min(100%,380px);aspect-ratio:1.586;transform-style:preserve-3d;transition:transform .6s ease;cursor:pointer;border:0;padding:0;background:none;font:inherit}
+.fan.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:18px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:0 18px 40px rgba(6,43,110,.35);color:#fff;text-align:left;padding:20px 22px;display:flex;flex-direction:column;justify-content:space-between}
+.face.front{background:var(--navy)}
+.face.front::after{content:"";position:absolute;right:-40px;bottom:-110px;width:130px;height:240px;background:var(--red);transform:rotate(28deg)}
+.face.back{background:var(--red);transform:rotateY(180deg)}
+.face.back::after{content:"";position:absolute;left:-50px;top:-130px;width:130px;height:240px;background:var(--navy);transform:rotate(28deg)}
+.face > *{position:relative;z-index:1}
+.f-top{display:flex;justify-content:space-between;align-items:center}
+.f-top .crest{width:40px;height:40px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:17px;border:3px solid var(--red)}
+.f-top span{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:.02em}
+.som{font-family:var(--display);font-weight:800;line-height:.82;text-transform:uppercase}
+.som .a{display:block;font-size:64px}
+.som .b{display:block;font-size:31px}
+.who{font-family:var(--display);font-weight:800;text-transform:uppercase;font-size:20px;line-height:1.1}
+.who small{display:block;font-size:14px;opacity:.85}
+.qr{width:84px;height:84px;background:#fff;border-radius:8px;padding:6px;display:grid;grid-template-columns:repeat(7,1fr);gap:2px;align-self:flex-end}
+.qr i{background:var(--ink);border-radius:1px}
+.qr i.o{background:transparent}
+.hint{font-size:14px;color:var(--muted);font-weight:600}
+.shops{display:flex;flex-direction:column;gap:10px}
+.shop{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;text-align:left;padding:12px 16px;min-height:56px;border-radius:10px;border:2px solid var(--line);background:#fff;cursor:pointer;font:inherit;color:var(--ink)}
+.shop:hover{border-color:var(--navy)}
+.shop small{display:block;color:var(--muted);font-size:14px}
+.shop .off{font-family:var(--display);font-weight:800;font-size:24px;color:var(--red)}
+.valid{border-radius:12px;padding:18px;background:var(--green-soft);color:var(--green-ink);display:flex;flex-direction:column;gap:4px}
+.valid b{font-family:var(--display);font-size:32px;text-transform:uppercase;line-height:1}
+/* simulator */
+.sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.sliders{display:flex;flex-direction:column;gap:24px}
+.sl{display:flex;flex-direction:column;gap:8px}
+.sl label{display:flex;justify-content:space-between;font-weight:700}
+.sl output{font-family:var(--display);font-size:26px;color:var(--navy);line-height:1}
+.sl input[type=range]{width:100%;accent-color:var(--red);height:32px}
+.result{background:var(--navy);color:#fff;border-radius:18px;padding:32px;display:flex;flex-direction:column;gap:18px}
+.result .big{font-family:var(--display);font-weight:800;font-size:clamp(56px,8vw,84px);line-height:.9}
+.result .row{display:flex;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.2);padding-top:12px;color:#D6DEF0}
+.result .row b{color:#fff}
+/* close */
+.close{background:var(--navy);color:#fff;border-radius:22px;padding:56px;display:flex;flex-direction:column;gap:20px;align-items:flex-start;position:relative;overflow:hidden}
+.close::after{content:"";position:absolute;right:-60px;top:-80px;width:200px;height:360px;background:var(--red);transform:rotate(28deg)}
+.close > *{position:relative;z-index:1}
+.close .lead{color:#D6DEF0}
+footer{padding-block:40px 80px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:var(--ink)}
+.note{font-size:14px;color:var(--muted)}
+@media (max-width:900px){
+  .hero,.demo,.sim{grid-template-columns:minmax(0,1fr)}
+  .cards3,.steps{grid-template-columns:minmax(0,1fr)}
+  .demo,.close,.result{padding:24px}
+  section{padding-block:56px}
+  .band::after{width:260px;height:260px;right:-120px;bottom:-120px}
+}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .fan{transition:none} }
+</style>
+</head>
+<body>
+<a href="/feina/" target="_top" style="position:fixed;left:12px;bottom:12px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;min-height:44px;box-sizing:border-box;border-radius:999px;background:#121412;color:#F2F0EA;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.2)"><span style="width:10px;height:10px;background:#FF6A2B;display:block"></span>Demo · Tornar a DOA Labs</a>
+
+<div class="band">
+  <div class="wrap">
+    <header class="top">
+      <a class="brand" href="#inici" aria-label="Carnet de fan, inici"><span class="crest" aria-hidden="true">3V</span><span><b>Carnet de fan</b><small>Pilot amb el Club Bàsquet 3 Viles</small></span></a>
+      <span class="pill"><span class="dot" style="background:#60A5FA"></span>En desenvolupament · temporada 2026–27</span>
+    </header>
+    <div class="hero" id="inici">
+      <div class="txt">
+        <span class="eyebrow" style="color:#AFC0E4">Per a clubs esportius i entitats</span>
+        <h1>Una nova font d'ingressos <em>al mòbil</em> de cada aficionat.</h1>
+        <p class="lead">El club ven carnets de fan digitals. L'aficionat té descomptes als comerços del poble. Els comerços guanyen clients. I tot es porta des del mòbil, sense targetes de plàstic ni paperassa.</p>
+        <div class="ctas">
+          <a class="btn white" href="#demo">Prova el carnet</a>
+          <a class="btn ghost" href="#numeros">Fes números per al teu club</a>
+        </div>
+      </div>
+      <div class="phone"><img src="/assets/shots/3-viles-fan.jpg" alt="Pàgina Fes-te fan del Club Bàsquet 3 Viles, amb el carnet Som Maresme"></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Qui hi guanya</span>
+      <h2>Tothom hi guanya alguna cosa</h2>
+      <p class="lead">Els clubs formatius viuen de quotes i subvencions. El carnet de fan afegeix una tercera via: la gent que estima el club, encara que no hi jugui ningú de casa.</p>
+    </div>
+    <div class="cards3">
+      <div class="box"><span class="tag" style="background:var(--navy)">El club</span><h3>Ingressos cada temporada</h3><p>Cada carnet és un ingrés directe. Saps quants aficionats tens i on compren.</p></div>
+      <div class="box"><span class="tag" style="background:var(--red)">L'aficionat</span><h3>Descomptes al poble</h3><p>Ajuda els nens del club i estalvia al forn, al bar o a la botiga d'esports.</p></div>
+      <div class="box"><span class="tag" style="background:var(--ink)">El comerç</span><h3>Clients nous, de la zona</h3><p>Moltes famílies venen d'altres pobles. El carnet les porta a la teva porta.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--subtle)">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Com funciona</span>
+      <h2>Sense targetes de plàstic</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><b>1</b><h3>Compra el carnet</h3><p>L'aficionat el compra en línia i el guarda al mòbil com una app, amb el seu nom i número.</p></div>
+      <div class="step"><b>2</b><h3>Un imant a la caixa</h3><p>Cada comerç té un imant amb un codi QR propi al costat de la caixa enregistradora.</p></div>
+      <div class="step"><b>3</b><h3>Escaneja i ensenya</h3><p>L'aficionat escaneja l'imant i ensenya el «validat». El club veu quants usos té cada comerç.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="wrap">
+    <div class="demo">
+      <div class="side">
+        <span class="eyebrow">Prova-ho</span>
+        <h2>El teu carnet</h2>
+        <p class="lead">Escriu el teu nom, toca el carnet per girar-lo i tria un comerç per validar el descompte.</p>
+        <div class="field">
+          <label for="name">Nom al carnet</label>
+          <input id="name" type="text" maxlength="22" autocomplete="off" placeholder="Nom Cognom">
+        </div>
+        <div class="shops" id="shops" role="group" aria-label="Comerços d'exemple"></div>
+        <div class="valid" id="valid" hidden aria-live="polite"></div>
+        <p class="note">Comerços i descomptes d'exemple.</p>
+      </div>
+      <div class="cardstage">
+        <button class="fan" id="fan" type="button" aria-label="Carnet de fan. Toca per girar-lo.">
+          <span class="face front">
+            <span class="f-top"><span class="crest" aria-hidden="true">3V</span><span>FAN 2026–27</span></span>
+            <span class="som"><span class="a">SOM</span><span class="b">MARESME</span></span>
+            <span class="who"><span id="nm1">NOM COGNOM</span><small id="num1">NÚM. FAN 0127</small></span>
+          </span>
+          <span class="face back">
+            <span class="f-top" style="justify-content:flex-end"><span>CARNET DE FAN</span></span>
+            <span style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px">
+              <span class="who"><span id="nm2">NOM COGNOM</span><small>Vàlid fins al 30/06/2027</small><small>Club Bàsquet 3 Viles</small></span>
+              <span class="qr" id="qr" aria-hidden="true"></span>
+            </span>
+          </span>
+        </button>
+        <span class="hint">Toca el carnet per girar-lo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="numeros" style="background:var(--subtle)">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Per a la junta</span>
+      <h2>Fes números per al teu club</h2>
+      <p class="lead">Mou els valors. És una calculadora simple: carnets venuts per preu del carnet. No inclou les comissions del cobrament en línia.</p>
+    </div>
+    <div class="sim">
+      <div class="sliders">
+        <div class="sl"><label for="fans">Carnets venuts <output id="oFans" for="fans">200</output></label><input id="fans" type="range" min="25" max="1000" step="25" value="200"></div>
+        <div class="sl"><label for="price">Preu del carnet <output id="oPrice" for="price">20 €</output></label><input id="price" type="range" min="5" max="60" step="5" value="20"></div>
+        <div class="sl"><label for="shopsN">Comerços adherits <output id="oShops" for="shopsN">15</output></label><input id="shopsN" type="range" min="0" max="60" step="1" value="15"></div>
+      </div>
+      <div class="result" aria-live="polite">
+        <span class="eyebrow" style="color:#AFC0E4">Ingressos per temporada</span>
+        <span class="big" id="total">4.000 €</span>
+        <div class="row"><span>Per carnet</span><b id="per">20 €</b></div>
+        <div class="row"><span>Aficionats per comerç</span><b id="ratio">13</b></div>
+        <div class="row"><span>Quota mensual de programari</span><b>0 €</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="close">
+      <span class="eyebrow" style="color:#AFC0E4">Un projecte de DOA Labs</span>
+      <h2>El vostre club, el vostre carnet</h2>
+      <p class="lead">Amb els colors, l'escut i els comerços del vostre poble. A nom del club, sense quotes mensuals de programari, i amb el seguiment d'usos per comerç per negociar més descomptes.</p>
+      <a class="btn red" href="/cita/" target="_top">Demana una cita</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span><b>Carnet de fan</b> · Un projecte de DOA Labs · Sant Andreu de Llavaneres</span>
+    <span>Demo amb dades d'exemple.</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var SHOPS = [
+    {n:"Forn de pa del barri", t:"Forn i pastisseria", off:"10%"},
+    {n:"Bar de la plaça", t:"Esmorzars i entrepans", off:"1 cafè"},
+    {n:"Botiga d'esports", t:"Material i roba", off:"15%"},
+    {n:"Fruiteria del mercat", t:"Fruita i verdura", off:"5%"}
+  ];
+  var fan = document.getElementById("fan"), nameIn = document.getElementById("name");
+  var nm1 = document.getElementById("nm1"), nm2 = document.getElementById("nm2");
+  var shopsEl = document.getElementById("shops"), valid = document.getElementById("valid");
+  var uses = 0;
+  function mk(t,c,x){var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e;}
+
+  fan.addEventListener("click", function(){ fan.classList.toggle("flip"); });
+  nameIn.addEventListener("input", function(){ var v = nameIn.value.trim().toUpperCase() || "NOM COGNOM"; nm1.textContent = v; nm2.textContent = v; });
+
+  // decorative QR pattern (not a real code)
+  var qr = document.getElementById("qr"), seed = 7;
+  for (var i=0;i<49;i++){ var r=Math.floor(i/7), c=i%7; var corner=(r<2&&c<2)||(r<2&&c>4)||(r>4&&c<2);
+    seed=(seed*31+11)%97; qr.appendChild(mk("i", corner||seed%3 ? "" : "o")); }
+
+  SHOPS.forEach(function(s){
+    var b = mk("button","shop"); b.type="button";
+    var l = mk("span"); l.appendChild(mk("b",null,s.n)); l.appendChild(mk("small",null,s.t));
+    b.appendChild(l); b.appendChild(mk("span","off",s.off));
+    b.addEventListener("click", function(){
+      uses++;
+      var now = new Date(), hh = String(now.getHours()).padStart(2,"0"), mm = String(now.getMinutes()).padStart(2,"0");
+      valid.textContent = ""; valid.hidden = false;
+      valid.appendChild(mk("b",null,"Validat"));
+      valid.appendChild(mk("span",null, s.off+" a "+s.n+" · "+hh+":"+mm));
+      valid.appendChild(mk("small",null, "Usos aquesta temporada: "+uses+". El club ho veu al seu tauler, per comerç."));
+    });
+    shopsEl.appendChild(b);
+  });
+
+  var fans = document.getElementById("fans"), price = document.getElementById("price"), shopsN = document.getElementById("shopsN");
+  function fmt(n){ return n.toLocaleString("ca-ES"); }
+  function calc(){
+    var f = +fans.value, p = +price.value, s = +shopsN.value;
+    document.getElementById("oFans").textContent = fmt(f);
+    document.getElementById("oPrice").textContent = p + " €";
+    document.getElementById("oShops").textContent = s;
+    document.getElementById("total").textContent = fmt(f*p) + " €";
+    document.getElementById("per").textContent = p + " €";
+    document.getElementById("ratio").textContent = s ? fmt(Math.round(f/s)) : "—";
+  }
+  [fans,price,shopsN].forEach(function(x){ x.addEventListener("input", calc); });
+  calc();
+})();
+</script>
+</body>
+</html>
