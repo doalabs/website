@@ -32,9 +32,14 @@
       var holder = format === "mobil" ? el("span", { "class": "phone" }, [img]) : img;
       shot.insertBefore(holder, shot.firstChild);
     }
-    var tagName = p.page ? "a" : "article";
-    var attrs = { "class": "project" };
-    if (p.page) attrs.href = p.page;
+    var target = p.demo || p.page;
+    var tagName = target ? "a" : "article";
+    var attrs = { "class": "project" + (p.demo ? " has-demo" : "") };
+    if (target) attrs.href = target;
+    if (p.demo) {
+      attrs["aria-label"] = p.name + ": obre la demo interactiva";
+      shot.appendChild(el("span", { "class": "demo-tag", text: "Prova la demo →" }));
+    }
     return el(tagName, attrs, [
       shot,
       el("h3", { text: p.name }),

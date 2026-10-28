@@ -8,6 +8,7 @@ Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no depe
 - Projects: `assets/projects.js` (add, reorder, change status or text; `featured: true` shows it on the home page).
 - Settings: `assets/config.js` (booking calendar URL, contact email).
 - Styles: `assets/styles.css` (design tokens at the top).
+- Live demos: one self-contained page per project in `demos/<slug>/index.html`, linked from the card with `demo:` in `assets/projects.js`. Each demo has a fixed "Tornar a DOA Labs" button and its booking button points to `/cita/`.
 - Pages: `index.html`, `feina/`, `feina/whalbar/`, `immobiliari/`, `cita/`, `privacitat/`, `avis-legal/`, `404.html`.
 
 ## Positioning

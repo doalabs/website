@@ -3,12 +3,16 @@
    format: "mobil" (shown inside a phone), "web" (browser view) or "tauler" (dashboard view).
    sector: who it is for. status: "En marxa" | "Beta" | "Llançament" | "En desenvolupament"
    Do not label projects as "own product": the site shows solutions, not ownership.
-   shot: image in /assets/shots/. Empty shot = dark tile with the name. */
+   shot: image in /assets/shots/. Empty shot = dark tile with the name.
+   demo: optional link to a live demo hosted in /demos/<slug>/; the card opens it. */
 window.DOA_PROJECTS = [
   { slug: "whalbar", name: "Whalbar", kind: "Agents i eines amb IA", format: "mobil", sector: "Hostaleria", status: "En marxa", featured: true, page: "/feina/whalbar/",
     line: "Un agent que viu a WhatsApp: el restaurador envia la foto de l'albarà i en uns segons sap quin proveïdor li ha apujat el preu.",
     shot: "/assets/shots/whalbar-chat.jpg" },
-  { slug: "whalbar-panell", name: "Panell Whalbar", kind: "Eines de gestió a mida", format: "tauler", sector: "Hostaleria", status: "En marxa", featured: true, page: "/feina/whalbar/",
+  { slug: "cami-al-14", name: "Camí al 14", kind: "Acadèmies en línia", format: "mobil", sector: "Formació", status: "En desenvolupament", featured: true, demo: "/demos/cami-al-14/",
+    line: "El professor de reforç que sap on falles: de 4t d'ESO a la PAU, amb exercicis corregits per IA i nota estimada per tema. Per a famílies i AMPES.",
+    shot: "/assets/shots/cami-al-14.jpg" },
+  { slug: "whalbar-panell", name: "Panell Whalbar", kind: "Eines de gestió a mida", format: "tauler", sector: "Hostaleria", status: "En marxa", page: "/feina/whalbar/",
     line: "El tauler que acompanya l'agent: què t'han cobrat de més aquest mes, per proveïdor, i el missatge de reclamació a punt.",
     shot: "/assets/shots/whalbar-panell.jpg" },
   { slug: "daniela-meriuta", name: "Daniela Meriuta", kind: "Webs que porten clients", format: "web", sector: "Immobiliari", status: "En marxa", featured: true,
@@ -34,8 +38,5 @@ window.DOA_PROJECTS = [
     shot: "/assets/shots/viure-al-maresme.jpg" },
   { slug: "court-commander", name: "Court Commander", kind: "Agents i eines amb IA", format: "mobil", sector: "Esport", status: "En desenvolupament",
     line: "Preparació de partits amb IA per a entrenadors: quintets, rotacions i informe del rival a partir de les actes.",
-    shot: "/assets/shots/court-commander.jpg" },
-  { slug: "cami-al-14", name: "Camí al 14", kind: "Acadèmies en línia", format: "web", sector: "Formació", status: "En desenvolupament",
-    line: "Estudi amb IA per a alumnes i AMPES, de 4t d'ESO a la PAU: targetes, tests, exercicis corregits i simulacres.",
-    shot: "" }
+    shot: "/assets/shots/court-commander.jpg" }
 ];
