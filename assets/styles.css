@@ -259,3 +259,10 @@ a.card .mono { margin-top: auto; }
 .site-footer .logo::before { width: 12px; height: 12px; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .shot { transition: none; } }
+
+/* Mètode DOA */
+.steps-doa li { min-height: 260px; }
+.doa-letter { font-size: clamp(64px, 7vw, 96px); font-weight: 800; line-height: .85; letter-spacing: -0.05em; color: var(--accent); }
+.steps-doa li b { font-size: 26px; }
+.steps-doa li p { font-size: 17px; }
+.split .h2 { margin-bottom: 4px; }

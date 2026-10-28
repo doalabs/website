@@ -9,7 +9,10 @@ Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no depe
 - Settings: `assets/config.js` (booking calendar URL, contact email).
 - Styles: `assets/styles.css` (design tokens at the top).
 - Live demos: one self-contained page per project in `demos/<slug>/index.html`, linked from the card with `demo:` in `assets/projects.js`. Demo cards open in a new tab; each demo has a fixed "Tanca la demo · DOA Labs" button that closes the tab (so the visitor is back on the site) or, if the demo was opened directly, goes to `/feina/`. Booking buttons point to `/cita/`. Current demos: Camí al 14, Whalbar (WhatsApp chat you can drive + panel), Carnet de fan (card, shop validation, club revenue calculator), AEA (student panel, syllabus, A/B simulator with scoring), Milo (expense chat: tap, voice note, receipt photo; live monthly budget).
-- Pages: `index.html`, `feina/`, `feina/whalbar/`, `immobiliari/`, `cita/`, `privacitat/`, `avis-legal/`, `404.html`.
+- Pages: `index.html`, `metode/` (El mètode DOA: qui sóc, diagnòstic, què costa una web, nivells, D·O·A, FAQ), `feina/`, `feina/whalbar/`, `immobiliari/`, `cita/`, `privacitat/`, `avis-legal/`, `404.html`.
+
+## Method
+**Mètode DOA: Diagnosticar · Ordenar · Automatitzar.** Strategy first, tools second; the tool adapts to the client, not the other way round. Free diagnosis. Max two clients in build at once. Not a subscription: tools are in the client's name and paid directly by the client; DOA Labs charges for the work. Three stack levels after handover: own website (domain only) · system without platform fees · system with editor.
 
 ## Positioning
 - **Line:** *Tu fes la teva feina. El sistema fa la resta.*
