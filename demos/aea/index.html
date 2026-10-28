@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AEA · demo</title>
+<meta name="description" content="AEA: acadèmia en línia per aprovar l'examen d'avaluador d'IA, amb temari, simulador corregit per IA i panell de progrés. Demo interactiva d'un projecte de DOA Labs.">
+<meta name="theme-color" content="#14213D">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a study desk — calm off-white, one navy sidebar, progress shown as a route; the panel is the hero */
+:root{
+  --bg:#F6F7FB; --surface:#FFFFFF; --ink:#14213D; --muted:#5A6478; --line:#E3E7EF; --subtle:#EEF1F7;
+  --navy:#14213D; --blue:#2F4BB5; --blue-soft:#E7ECFB; --green:#0E9F6E; --green-soft:#DDF5EA; --green-ink:#0B7A55;
+  --amber:#D97706; --amber-soft:#FDF0DC; --red:#D93B3B; --red-soft:#FCE6E6; --red-ink:#B42323;
+  --shadow:0 1px 0 rgba(20,33,61,.04),0 10px 30px rgba(20,33,61,.08);
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;margin:0}
+h1,h2,h3{line-height:1.08;margin:0;text-wrap:balance;font-weight:800;letter-spacing:-.025em}
+h1{font-size:clamp(36px,5.6vw,60px)}
+h2{font-size:clamp(28px,3.6vw,40px)}
+h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+p{margin:0;text-wrap:pretty}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+.eyebrow{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.lead{font-size:clamp(18px,2vw,20px);color:var(--muted);max-width:62ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 22px;border-radius:12px;font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-family:inherit}
+.btn.go{background:var(--green);border-color:var(--green);color:#fff}
+.btn.blue{background:var(--blue);border-color:var(--blue);color:#fff}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;flex:0 0 auto}
+/* top */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:20px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.mark{width:42px;height:42px;border-radius:11px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;letter-spacing:.04em}
+.brand b{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.brand small{display:block;font-size:12px;color:var(--muted);font-weight:600}
+.hero{display:flex;flex-direction:column;gap:20px;padding-block:24px 40px;max-width:860px}
+.hero h1 .hl{color:var(--blue)}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+/* app frame (the panel) */
+.app{background:var(--surface);border:1.5px solid var(--line);border-radius:22px;box-shadow:var(--shadow);overflow:hidden;display:grid;grid-template-columns:230px minmax(0,1fr)}
+.side{background:var(--navy);color:#C9D2EA;padding:22px 16px;display:flex;flex-direction:column;gap:4px}
+.side .mark{width:36px;height:36px;font-size:12px;background:#fff;color:var(--navy);margin-bottom:16px}
+.nav{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 12px;min-height:44px;border-radius:10px;border:0;background:transparent;color:inherit;font:600 14.5px/1.2 var(--sans);cursor:pointer}
+.nav:hover{background:rgba(255,255,255,.07);color:#fff}
+.nav[aria-current="page"]{background:#fff;color:var(--navy)}
+.nav svg{flex:0 0 auto}
+.side .credit{margin-top:auto;padding:12px;border-radius:10px;background:rgba(255,255,255,.07);font-size:12.5px}
+.side .credit b{display:block;color:#fff;font-size:15px}
+.main{padding:26px 28px;background:var(--bg);min-height:640px}
+.main h2{font-size:26px}
+.mhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.mhead p{color:var(--muted);font-size:14.5px}
+.streak{background:var(--amber-soft);color:var(--amber);font-size:12.5px;font-weight:700;padding:6px 12px;border-radius:999px}
+.card{background:var(--surface);border-radius:14px;padding:18px;box-shadow:0 1px 2px rgba(20,33,61,.06);border:1px solid var(--line)}
+.next{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--navy);color:#fff;border:0}
+.next small{color:#AEB9D6;font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.next b{display:block;font-size:18px;margin-top:2px}
+.next .btn{min-height:42px;padding:8px 16px;font-size:14px}
+.route{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:14px}
+.stop{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--muted)}
+.stop b{color:var(--ink);font-size:13.5px}
+.bar{height:6px;border-radius:999px;background:var(--subtle);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:999px;transition:width .5s ease}
+.stop.now b{color:var(--blue)} .stop.now .bar i{background:var(--blue)}
+.goal{display:grid;grid-template-columns:auto minmax(0,1fr);gap:20px;align-items:center;margin-top:14px}
+.ring{--p:0;width:108px;height:108px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--p)*1%),var(--subtle) 0);display:flex;align-items:center;justify-content:center}
+.ring span{width:84px;height:84px;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:800;font-size:24px;line-height:1}
+.ring small{font-size:11px;color:var(--muted);font-weight:600;margin-top:3px}
+.parts{display:flex;flex-direction:column;gap:10px}
+.part{display:grid;grid-template-columns:110px minmax(0,1fr) 40px;gap:10px;align-items:center;font-size:13px}
+.part em{font-style:normal;text-align:right;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}
+.metric small{display:block;font-size:11.5px;color:var(--muted);font-weight:700}
+.metric b{display:block;font-size:24px;font-weight:800;letter-spacing:-.02em;margin-top:4px;font-variant-numeric:tabular-nums}
+.metric b span{font-size:13px;color:var(--muted);font-weight:600}
+.metric p{font-size:11.5px;color:var(--muted);margin-top:3px}
+/* modules */
+.mods{display:flex;flex-direction:column;gap:8px}
+.mod{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px}
+.mod .n{width:40px;height:40px;border-radius:10px;background:var(--blue-soft);color:var(--blue);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+.mod.done .n{background:var(--green-soft);color:var(--green-ink)}
+.mod b{display:block;font-size:15px}
+.mod p{font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.mod .t{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.mod .ok{color:var(--green-ink);font-weight:700;font-size:12.5px}
+/* simulator */
+.prompt{font-family:var(--mono);font-size:13px;line-height:1.55;background:var(--subtle);border-radius:10px;padding:14px;white-space:pre-wrap}
+.ab{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.resp{font-size:13.5px;line-height:1.55;white-space:pre-wrap}
+.resp h3{font-size:14px;margin-bottom:8px;display:flex;justify-content:space-between}
+.choice{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.choice button{min-height:44px;padding:8px 14px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font:600 14px/1 var(--sans);cursor:pointer;color:var(--ink)}
+.choice button[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft);color:var(--blue)}
+.checks{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+.checks label{display:flex;gap:10px;align-items:flex-start;font-size:14px;cursor:pointer}
+.checks input{width:18px;height:18px;margin-top:3px;accent-color:var(--blue)}
+textarea{width:100%;min-height:90px;border-radius:10px;border:1.5px solid var(--line);padding:12px;font:14px/1.5 var(--sans);color:var(--ink);resize:vertical;margin-top:12px}
+.verdict{margin-top:14px;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.verdict.good{background:var(--green-soft);color:var(--green-ink)}
+.verdict.bad{background:var(--red-soft);color:var(--red-ink)}
+.verdict b{font-size:16px}
+.verdict ul{margin:0;padding-left:18px;font-size:14px;color:var(--ink)}
+.score{font-family:var(--mono);font-size:22px;font-weight:500}
+/* sections below */
+.head{display:flex;flex-direction:column;gap:14px;max-width:760px;margin-bottom:32px}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.box{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.box p{color:var(--muted)}
+.close{background:var(--navy);color:#fff;border-radius:24px;padding:52px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.close .lead{color:#C9D2EA}
+footer{padding-block:36px 80px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:var(--ink)}
+.note{font-size:13px;color:var(--muted)}
+[hidden]{display:none!important}
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .side{flex-direction:row;overflow-x:auto;padding:10px;gap:6px}
+  .side .mark,.side .credit{display:none}
+  .nav{white-space:nowrap;width:auto}
+  .main{padding:18px}
+  .route{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .goal{grid-template-columns:minmax(0,1fr)}
+  .ab,.cards3{grid-template-columns:minmax(0,1fr)}
+  .close{padding:28px}
+  section{padding-block:56px}
+}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .bar i{transition:none} }
+</style>
+</head>
+<body>
+<a id="doaBack" href="/feina/" style="position:fixed;left:12px;bottom:12px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;min-height:44px;box-sizing:border-box;border-radius:999px;background:#121412;color:#F2F0EA;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.2)"><span style="width:10px;height:10px;background:#FF6A2B;display:block"></span>Tanca la demo · DOA Labs</a><script>document.getElementById("doaBack").addEventListener("click",function(e){e.preventDefault();try{window.close()}catch(x){}setTimeout(function(){location.href="/feina/"},200)});</script>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#inici" aria-label="AEA, inici"><span class="mark" aria-hidden="true">AEA</span><span><b>Advanced Employment Academy</b><small>Un projecte de DOA Labs</small></span></a>
+    <span class="pill" style="background:var(--amber-soft);color:var(--amber)"><span class="dot" style="background:var(--amber)"></span>Llançament · curs TRK-01</span>
+  </header>
+  <div class="hero" id="inici">
+    <span class="eyebrow">Acadèmia en línia · Avaluador d'IA</span>
+    <h1>Prepara l'examen d'avaluador d'IA i cobra de <span class="hl">20 a 40 €/hora</span> en remot.</h1>
+    <p class="lead">Temari curt, simulador amb correcció per IA i un panell que et diu cada dia què et toca. Aquesta és la vista de l'alumne: toca el menú.</p>
+  </div>
+</div>
+
+<section style="padding-top:0" id="demo">
+  <div class="wrap">
+    <div class="app" id="app">
+      <nav class="side" aria-label="Menú de l'alumne">
+        <span class="mark" aria-hidden="true">AEA</span>
+        <button class="nav" type="button" data-view="panell" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>Panell</button>
+        <button class="nav" type="button" data-view="temari"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/></svg>Temari</button>
+        <button class="nav" type="button" data-view="simulador"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="4" width="8" height="16" rx="1.5"/><rect x="13" y="4" width="8" height="16" rx="1.5"/></svg>Simulador A/B</button>
+        <div class="credit"><b>12 crèdits IA</b>per correccions del simulador</div>
+      </nav>
+
+      <div class="main">
+        <!-- PANELL -->
+        <div data-panel="panell">
+          <div class="mhead">
+            <div><h2>Hola, Laura</h2><p>La teva preparació per a l'assessment, d'un cop d'ull</p></div>
+            <span class="streak">4 dies d'activitat</span>
+          </div>
+          <div class="card next">
+            <div><small>El teu pas següent</small><b id="nextTxt">Mòdul 3 · Caçar al·lucinacions en 60 segons</b></div>
+            <button class="btn go" type="button" data-goto="temari">Continua</button>
+          </div>
+          <div class="card" style="margin-top:14px">
+            <span class="eyebrow">La teva ruta</span>
+            <div class="route" id="route"></div>
+          </div>
+          <div class="card goal">
+            <div class="ring" id="ring" style="--p:46"><span id="ringTxt">46%<small>preparada</small></span></div>
+            <div class="parts">
+              <span class="eyebrow">Estàs a punt per a l'examen?</span>
+              <div class="part"><span>Coneixement</span><span class="bar"><i id="pk" style="width:33%"></i></span><em id="pkT">33%</em></div>
+              <div class="part"><span>Pràctica</span><span class="bar"><i id="pp" style="width:60%"></i></span><em id="ppT">60%</em></div>
+              <div class="part"><span>Qualitat</span><span class="bar"><i id="pq" style="width:45%"></i></span><em id="pqT">45%</em></div>
+            </div>
+          </div>
+          <div class="metrics">
+            <div class="card metric"><small>Mòduls</small><b id="mMods">3<span> / 9</span></b><p>Objectiu: tots</p></div>
+            <div class="card metric"><small>Casos resolts</small><b id="mCases">6</b><p>amb ajuda i avaluats</p></div>
+            <div class="card metric"><small>Nota mitjana</small><b id="mAvg">6,8<span> / 10</span></b><p>Objectiu: 8,0</p></div>
+            <div class="card metric"><small>Exàmens</small><b>0<span> / 3</span></b><p>45 min cada un</p></div>
+          </div>
+        </div>
+
+        <!-- TEMARI -->
+        <div data-panel="temari" hidden>
+          <div class="mhead"><div><h2>Temari</h2><p>Nou mòduls curts. Marca'n un com a fet i mira com canvia el panell.</p></div></div>
+          <div class="mods" id="mods"></div>
+        </div>
+
+        <!-- SIMULADOR -->
+        <div data-panel="simulador" hidden>
+          <div class="mhead"><div><h2>Simulacre #1 · Constraint Violation Trap</h2><p>Com a l'examen real: compara dues respostes, tria la millor i justifica-ho. La IA et corregeix.</p></div><span class="pill" style="background:var(--green-soft);color:var(--green-ink)">Fàcil</span></div>
+          <div class="card">
+            <span class="eyebrow">Prompt</span>
+            <div class="prompt" style="margin-top:8px">Write a product announcement for our new noise-cancelling headphones.
+Hard requirements: exactly three sentences, no bullet points, and do not mention the price.</div>
+            <div class="ab">
+              <div class="card resp"><h3>Resposta A</h3>Introducing the Aura One, our lightest noise-cancelling headphones yet, engineered for people who need silence on demand. Adaptive cancellation reads your environment forty times per second and adjusts without you touching a thing. Thirty hours of playback mean the commute, the flight and the workday all fit on a single charge.</div>
+              <div class="card resp"><h3>Resposta B</h3>Meet the Aura One — our best headphones ever.
+
+- Adaptive noise cancellation
+- 30-hour battery
+- Just $249, available today
+
+Order now and hear the difference.</div>
+            </div>
+            <span class="eyebrow" style="display:block;margin-top:16px">Quina és millor?</span>
+            <div class="choice" id="choice" role="group" aria-label="Tria la millor resposta">
+              <button type="button" data-v="A">A és molt millor</button>
+              <button type="button" data-v="a">A és una mica millor</button>
+              <button type="button" data-v="b">B és una mica millor</button>
+              <button type="button" data-v="B">B és molt millor</button>
+            </div>
+            <span class="eyebrow" style="display:block;margin-top:16px">Quines restriccions incompleix B?</span>
+            <div class="checks">
+              <label><input type="checkbox" id="c1"> No té exactament tres frases</label>
+              <label><input type="checkbox" id="c2"> Fa servir vinyetes</label>
+              <label><input type="checkbox" id="c3"> Menciona el preu</label>
+            </div>
+            <label for="just" class="eyebrow" style="display:block;margin-top:16px">Justificació (en anglès, com a l'examen)</label>
+            <textarea id="just" placeholder="Response A is better because..."></textarea>
+            <div class="choice"><button type="button" id="grade" style="background:var(--blue);border-color:var(--blue);color:#fff">Corregeix-me</button></div>
+            <div id="verdict" hidden aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="note" style="margin-top:12px">Vista de demostració amb dades d'exemple. A l'acadèmia real, el progrés es guarda al compte de l'alumne i la correcció la fa la IA amb les rúbriques oficials.</p>
+  </div>
+</section>
+
+<section style="background:var(--surface)">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Per a qui forma</span>
+      <h2>El teu coneixement, convertit en un curs que es ven sol</h2>
+      <p class="lead">Si ets professor, formador o consultor, aquesta és la mateixa estructura per a la teva matèria: temari, pràctica corregida i un panell de progrés per a cada alumne.</p>
+    </div>
+    <div class="cards3">
+      <div class="box"><h3>Temari curt</h3><p>Mòduls de 3 a 14 minuts, amb fitxes, targetes i tests.</p></div>
+      <div class="box"><h3>Correcció automàtica</h3><p>La IA corregeix cada exercici amb els teus criteris i explica on s'ha fallat.</p></div>
+      <div class="box"><h3>Cobrament i accés</h3><p>Pagament únic o subscripció, accés al moment i certificat amb codi verificable.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;background:var(--surface)">
+  <div class="wrap">
+    <div class="close">
+      <span class="eyebrow" style="color:#AEB9D6">Un projecte de DOA Labs</span>
+      <h2>Vols vendre el que saps sense gastar-hi les teves hores?</h2>
+      <p class="lead">Et muntem l'acadèmia a nom teu: cursos, correcció amb IA, cobraments i panell de l'alumne. Sense quotes de plataforma.</p>
+      <a class="btn go" href="/cita/" target="_top">Demana una cita</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span><b>AEA</b> · Un projecte de DOA Labs · Sant Andreu de Llavaneres</span>
+    <span>Demo amb dades d'exemple.</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  /* back button: close the demo tab if we opened it, otherwise go back to the site */
+
+  var MODS = [
+    ["Què és avaluar IA i les regles del sector", "RLHF, per què el teu criteri entrena el model i les regles no negociables.", 5],
+    ["Les 4 rúbriques i en quin ordre s'apliquen", "Instruction Following, Truthfulness, Helpfulness i Safety & Tone.", 6],
+    ["Restriccions negatives: la trampa número 1", "Les prohibicions explícites i com auditar-les en 30 segons.", 6],
+    ["Caçar al·lucinacions en 60 segons", "Els tres tipus d'al·lucinació i el protocol de verificació ràpida.", 5],
+    ["Raonament lògic i verificació numèrica", "Fal·làcies convincents i xifres que no quadren.", 6],
+    ["Com escriure la justificació en anglès", "La fórmula de 3 passos i el vocabulari que busquen els revisors.", 6],
+    ["Estil i localització en espanyol", "Traduccions robòtiques, calcs de l'anglès i errors de registre.", 3],
+    ["Taller: nou casos resolts pas a pas", "Nou comparatives A vs B, una per cada tipus d'error.", 14],
+    ["El dia de l'examen", "Protocol i errors que bloquegen el compte.", 6]
+  ];
+  var st = { done: 3, cases: 6, avg: 6.8, graded: 2, simOk: false };
+
+  function mk(t,c,x){var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e;}
+  function fmt(n){ return String(n).replace(".",","); }
+
+  /* views */
+  var navs = document.querySelectorAll(".nav"), panels = document.querySelectorAll("[data-panel]");
+  function show(v){
+    navs.forEach(function(n){ n.getAttribute("data-view")===v ? n.setAttribute("aria-current","page") : n.removeAttribute("aria-current"); });
+    panels.forEach(function(p){ p.hidden = p.getAttribute("data-panel")!==v; });
+  }
+  navs.forEach(function(n){ n.addEventListener("click", function(){ show(n.getAttribute("data-view")); }); });
+  document.querySelectorAll("[data-goto]").forEach(function(b){ b.addEventListener("click", function(){ show(b.getAttribute("data-goto")); }); });
+
+  /* panel numbers */
+  function render(){
+    var know = Math.round(st.done/9*100), prac = Math.min(100, Math.round(st.cases/10*100)), qual = Math.round(Math.max(0,(st.avg-4))/4*100);
+    var ready = Math.round(know*.4 + prac*.3 + Math.min(qual,100)*.3);
+    document.getElementById("ring").style.setProperty("--p", ready);
+    document.getElementById("ringTxt").firstChild.nodeValue = ready + "%";
+    [["pk",know],["pp",prac],["pq",Math.min(qual,100)]].forEach(function(x){ document.getElementById(x[0]).style.width = x[1]+"%"; document.getElementById(x[0]+"T").textContent = x[1]+"%"; });
+    document.getElementById("mMods").firstChild.nodeValue = st.done;
+    document.getElementById("mCases").textContent = st.cases;
+    document.getElementById("mAvg").firstChild.nodeValue = fmt(st.avg.toFixed(1));
+    var next = st.done < 9 ? "Mòdul " + st.done + " · " + MODS[st.done][0] : "Simulacre #1 · Constraint Violation Trap";
+    document.getElementById("nextTxt").textContent = next;
+    var stops = [["Aprendre", st.done+"/9 mòduls", st.done/9],["Practicar", Math.min(st.cases,10)+"/10 amb ajuda", Math.min(st.cases,10)/10],["Avaluar-te", st.graded+"/6 avaluats", st.graded/6],["Examinar-te","0/3 exàmens",0],["A punt", ready>=80?"Certificat":"Bloquejat", ready>=80?1:0]];
+    var route = document.getElementById("route"); route.textContent = "";
+    var cur = st.done<9 ? 0 : (st.cases<10 ? 1 : 2);
+    stops.forEach(function(s,i){ var d = mk("div","stop"+(i===cur?" now":"")); d.appendChild(mk("b",null,s[0])); var bar = mk("span","bar"); var fill = mk("i"); fill.style.width = Math.round(s[2]*100)+"%"; bar.appendChild(fill); d.appendChild(bar); d.appendChild(mk("span",null,s[1])); route.appendChild(d); });
+    var list = document.getElementById("mods"); list.textContent = "";
+    MODS.forEach(function(m,i){
+      var done = i < st.done;
+      var row = mk("div","card mod"+(done?" done":"")); row.appendChild(mk("span","n", String(i)));
+      var t = mk("div"); t.appendChild(mk("b",null,m[0])); t.appendChild(mk("p",null,m[1])); row.appendChild(t);
+      if(done){ row.appendChild(mk("span","ok","Fet")); }
+      else if(i === st.done){ var b = mk("button","btn blue","Marca com a fet"); b.type="button"; b.style.minHeight="40px"; b.style.padding="6px 14px"; b.style.fontSize="13.5px"; b.addEventListener("click", function(){ st.done++; render(); }); row.appendChild(b); }
+      else { row.appendChild(mk("span","t", m[2]+" min")); }
+      list.appendChild(row);
+    });
+  }
+
+  /* simulator */
+  var pick = null;
+  document.querySelectorAll("#choice button").forEach(function(b){ b.addEventListener("click", function(){ pick = b.getAttribute("data-v"); document.querySelectorAll("#choice button").forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true" : "false"); }); }); });
+  document.getElementById("grade").addEventListener("click", function(){
+    var v = document.getElementById("verdict"); v.textContent = ""; v.hidden = false;
+    var found = ["c1","c2","c3"].filter(function(id){ return document.getElementById(id).checked; }).length;
+    var just = document.getElementById("just").value.trim();
+    var words = just ? just.split(/\s+/).length : 0;
+    var mentions = /bullet|price|\$|sentence|constraint|requirement/i.test(just);
+    var score = 0, notes = [];
+    if(pick === "A"){ score += 4; notes.push("Bona tria: A compleix les tres restriccions dures i B en trenca tres."); }
+    else if(pick === "a"){ score += 2.5; notes.push("A és millor, però la diferència és gran: B trenca tres restriccions dures. Tria «molt millor»."); }
+    else if(pick){ notes.push("B trenca les tres restriccions del prompt: frases, vinyetes i preu. Aquí la resposta correcta és A."); }
+    else { notes.push("Primer tria quina resposta és millor."); }
+    score += found; if(found < 3) notes.push("Restriccions trobades: " + found + " de 3. Revisa-les una per una: és la trampa número 1 de l'examen.");
+    if(words >= 12 && mentions){ score += 3; notes.push("La justificació cita les restriccions concretes. Així és com la llegeixen els revisors."); }
+    else if(words){ score += 1; notes.push("Justificació massa genèrica: digues quina restricció es trenca i on."); }
+    else { notes.push("Falta la justificació: a l'examen sense justificació la resposta no compta."); }
+    score = Math.min(10, score);
+    var good = score >= 8;
+    v.className = "verdict " + (good ? "good" : "bad");
+    var top = mk("div"); top.style.cssText="display:flex;justify-content:space-between;align-items:baseline;gap:12px";
+    top.appendChild(mk("b",null, good ? "Aprovat" : "Encara no")); top.appendChild(mk("span","score", fmt(score.toFixed(1)) + " / 10"));
+    v.appendChild(top);
+    var ul = mk("ul"); notes.forEach(function(n){ ul.appendChild(mk("li",null,n)); }); v.appendChild(ul);
+    if(!st.simOk || good){ st.graded = Math.min(6, st.graded + 1); st.cases++; st.avg = Math.round(((st.avg*st.graded) + score)/(st.graded+1)*10)/10; st.simOk = true; }
+    v.appendChild(mk("span",null,"El resultat ja s'ha afegit al teu panell."));
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

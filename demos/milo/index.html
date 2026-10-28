@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Milo · demo</title>
+<meta name="description" content="Milo: l'assistent de despeses que et pregunta i tu contestes amb un toc, una nota de veu o la foto del tiquet. Demo interactiva d'un projecte de DOA Labs.">
+<meta name="theme-color" content="#111111">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: a calm white phone app — black ink, five coloured bars as the only colour, numbers that move when you answer */
+:root{
+  --bg:#FFFFFF; --subtle:#F5F5F4; --ink:#111111; --muted:#57534E; --line:#E7E5E4;
+  --c1:#E5484D; --c2:#F76B15; --c3:#F5B700; --c4:#30A46C; --c5:#3E63DD;
+  --shadow:0 1px 0 rgba(0,0,0,.04),0 14px 34px rgba(0,0,0,.08);
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;margin:0}
+h1,h2,h3{line-height:1.05;margin:0;text-wrap:balance;font-weight:800;letter-spacing:-.035em}
+h1{font-size:clamp(46px,8vw,88px)}
+h2{font-size:clamp(30px,4vw,44px)}
+h3{font-size:19px;font-weight:700;letter-spacing:-.01em}
+p{margin:0;text-wrap:pretty}
+:focus-visible{outline:3px solid var(--c5);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+section{padding-block:72px}
+.eyebrow{font-size:13px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.lead{font-size:clamp(18px,2.1vw,21px);color:var(--muted);max-width:56ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:12px 26px;border-radius:16px;font-weight:700;font-size:16px;text-decoration:none;border:1.5px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;font-family:inherit}
+.btn.ink{background:var(--ink);border-color:var(--ink);color:#fff}
+.logo{width:44px;height:44px;border-radius:12px;background:var(--ink);display:flex;align-items:flex-end;justify-content:center;gap:3px;padding:9px 8px}
+.logo i{width:4px;border-radius:2px;display:block}
+.logo i:nth-child(1){height:10px;background:var(--c1)} .logo i:nth-child(2){height:15px;background:var(--c2)} .logo i:nth-child(3){height:19px;background:var(--c3)} .logo i:nth-child(4){height:22px;background:var(--c4)} .logo i:nth-child(5){height:25px;background:var(--c5)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-weight:800;font-size:26px;letter-spacing:-.04em}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:600;background:#FEF6DA;color:#8A6100}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center;padding-block:28px 64px}
+.hero .txt{display:flex;flex-direction:column;gap:22px}
+.ways{display:flex;gap:10px;flex-wrap:wrap}
+.ways span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--subtle);font-weight:600;font-size:15px}
+/* demo */
+.demo{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:44px;align-items:start}
+.phone{width:min(100%,360px);margin:0 auto;border:10px solid var(--ink);border-radius:46px;overflow:hidden;background:var(--subtle);box-shadow:var(--shadow);height:680px;display:flex;flex-direction:column}
+.phead{display:flex;align-items:center;gap:10px;padding:16px;background:#fff;border-bottom:1px solid var(--line)}
+.phead .logo{width:34px;height:34px;border-radius:9px;padding:7px 6px;gap:2px}
+.phead .logo i{width:3px}
+.phead b{font-size:16px} .phead small{display:block;color:var(--muted);font-size:12px}
+.feed{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.msg{max-width:88%;padding:10px 12px;border-radius:16px;font-size:14.5px;line-height:1.45;box-shadow:0 1px 0 rgba(0,0,0,.05)}
+.msg.milo{background:#fff;align-self:flex-start;border-bottom-left-radius:6px}
+.msg.me{background:var(--ink);color:#fff;align-self:flex-end;border-bottom-right-radius:6px}
+.msg .amt{font-weight:800}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.chips button{min-height:36px;padding:6px 12px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font:600 13.5px/1 var(--sans);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chips button:hover{border-color:var(--ink)}
+.chips button:disabled{opacity:.45;cursor:default}
+.cat{width:8px;height:8px;border-radius:50%;display:inline-block}
+.alert{background:#FFF1F0;color:#B42318;border-radius:12px;padding:8px 10px;font-weight:600;font-size:13.5px;margin-top:6px}
+.ticket{background:#FFFDF6;border:1px dashed #D6D3D1;border-radius:8px;padding:8px;font:12px/1.5 ui-monospace,Menlo,monospace;margin-bottom:6px;color:#44403C}
+.wave{display:flex;align-items:center;gap:3px;height:22px;margin-bottom:4px}
+.wave i{width:3px;background:#fff;border-radius:2px;opacity:.85}
+.pfoot{background:#fff;border-top:1px solid var(--line);padding:10px;display:flex;gap:8px}
+.pfoot button{flex:1;min-height:44px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:600 13px/1.1 var(--sans);color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
+.pfoot button:disabled{opacity:.45;cursor:default}
+.board{display:flex;flex-direction:column;gap:16px}
+.card{background:#fff;border:1.5px solid var(--line);border-radius:20px;padding:22px}
+.month b{font-size:44px;font-weight:800;letter-spacing:-.04em;line-height:1;display:block;font-variant-numeric:tabular-nums}
+.month small{color:var(--muted)}
+.cats{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.c{display:grid;grid-template-columns:96px minmax(0,1fr) 92px;gap:12px;align-items:center;font-size:14px}
+.c em{font-style:normal;text-align:right;color:var(--muted);font-variant-numeric:tabular-nums;font-size:13px}
+.bar{height:10px;border-radius:999px;background:var(--subtle);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:999px;transition:width .5s ease}
+.c.over em{color:#B42318;font-weight:700}
+.goal{display:flex;flex-direction:column;gap:10px}
+.goal .bar{height:14px}
+.goal-row{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--muted)}
+.goal-row b{color:var(--ink)}
+.note{font-size:13px;color:var(--muted)}
+.head{display:flex;flex-direction:column;gap:14px;max-width:760px;margin-bottom:32px}
+.cards3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.box{background:var(--subtle);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.box p{color:var(--muted)}
+.close{background:var(--ink);color:#fff;border-radius:28px;padding:52px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.close .lead{color:#D6D3D1}
+footer{padding-block:36px 80px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer b{color:var(--ink)}
+@media (max-width:900px){
+  .hero,.demo{grid-template-columns:minmax(0,1fr)}
+  .cards3{grid-template-columns:minmax(0,1fr)}
+  .close{padding:28px}
+  .c{grid-template-columns:80px minmax(0,1fr) 84px}
+  section{padding-block:56px}
+}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} .bar i{transition:none} .feed{scroll-behavior:auto} }
+</style>
+</head>
+<body>
+<a id="doaBack" href="/feina/" style="position:fixed;left:12px;bottom:12px;z-index:9999;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;min-height:44px;box-sizing:border-box;border-radius:999px;background:#121412;color:#F2F0EA;font:600 14px/1 system-ui,sans-serif;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.2)"><span style="width:10px;height:10px;background:#FF6A2B;display:block"></span>Tanca la demo · DOA Labs</a><script>document.getElementById("doaBack").addEventListener("click",function(e){e.preventDefault();try{window.close()}catch(x){}setTimeout(function(){location.href="/feina/"},200)});</script>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#inici" aria-label="Milo, inici"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>milo</a>
+    <span class="pill"><span class="dot" style="background:#F5B700"></span>Beta · un projecte de DOA Labs</span>
+  </header>
+  <div class="hero" id="inici">
+    <div class="txt">
+      <span class="eyebrow">Assistent de despeses personal</span>
+      <h1>Hola, sóc Milo.</h1>
+      <p class="lead">Organitza't sense haver d'organitzar-te. Jo et pregunto, tu em contestes, i vas arribant a allò que vols.</p>
+      <div class="ways"><span>Un toc</span><span>Una nota de veu</span><span>La foto del tiquet</span></div>
+      <div><a class="btn ink" href="#demo">Prova'l ara</a></div>
+    </div>
+    <div class="card" style="display:flex;flex-direction:column;gap:14px">
+      <span class="eyebrow">El problema</span>
+      <h3 style="font-size:24px">Les apps de pressupost demanen massa feina.</h3>
+      <p style="color:var(--muted)">Cal apuntar cada despesa, triar categories i revisar gràfics. Al cap de dues setmanes, ningú ho fa. Milo ho capgira: ell pregunta, tu només contestes.</p>
+    </div>
+  </div>
+</div>
+
+<section id="demo" style="background:var(--subtle)">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Prova-ho</span>
+      <h2>Contesta a Milo i mira com es mou el mes</h2>
+      <p class="lead">Toca una categoria, envia una nota de veu o la foto d'un tiquet. Els números de la dreta canvien al moment.</p>
+    </div>
+    <div class="demo">
+      <div class="phone">
+        <div class="phead"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span><b>Milo</b><small id="status">t'escolta</small></span></div>
+        <div class="feed" id="feed" aria-live="polite" aria-label="Conversa amb Milo"></div>
+        <div class="pfoot">
+          <button type="button" id="voice"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Nota de veu</button>
+          <button type="button" id="photo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Foto del tiquet</button>
+        </div>
+      </div>
+      <div class="board">
+        <div class="card month">
+          <span class="eyebrow">Octubre · gastat</span>
+          <b id="spent">0 €</b>
+          <small id="left">de 1.200 € de pressupost</small>
+        </div>
+        <div class="card">
+          <span class="eyebrow">Per categoria</span>
+          <div class="cats" id="cats"></div>
+        </div>
+        <div class="card goal">
+          <span class="eyebrow">Objectiu</span>
+          <div class="goal-row"><b>Viatge a Menorca</b><span id="goalTxt">340 € de 600 €</span></div>
+          <div class="bar"><i id="goalBar" style="width:57%;background:var(--c4)"></i></div>
+          <span class="note" id="goalNote">Al ritme d'ara, hi arribes al juny.</span>
+        </div>
+        <p class="note">Dades d'exemple. A l'app real, Milo llegeix els moviments del banc i et pregunta només el que no sap classificar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Com funciona</span>
+      <h2>Tres maneres de contestar, cap formulari</h2>
+    </div>
+    <div class="cards3">
+      <div class="box"><h3>Un toc</h3><p>Milo veu un càrrec al banc i et pregunta què era. Toques la categoria i ja està.</p></div>
+      <div class="box"><h3>Una nota de veu</h3><p>«Ahir quinze euros de gasolina». Milo ho entén i ho apunta.</p></div>
+      <div class="box"><h3>La foto del tiquet</h3><p>Fas una foto i Milo en treu l'import, la botiga i la categoria.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="close">
+      <span class="eyebrow" style="color:#A8A29E">Un projecte de DOA Labs</span>
+      <h2>Els teus clients també odien omplir formularis</h2>
+      <p class="lead">El mateix principi serveix per a un negoci: el sistema pregunta, el client o l'equip contesta amb un toc, una veu o una foto. Les dades entren soles.</p>
+      <a class="btn" href="/cita/" target="_top">Demana una cita</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span><b>Milo</b> · Un projecte de DOA Labs · Sant Andreu de Llavaneres</span>
+    <span>Demo amb dades d'exemple.</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+
+  var CATS = {
+    super:{n:"Súper", c:"var(--c4)", budget:350, spent:212},
+    casa:{n:"Casa", c:"var(--c5)", budget:450, spent:410},
+    oci:{n:"Oci", c:"var(--c2)", budget:120, spent:104},
+    transport:{n:"Transport", c:"var(--c3)", budget:120, spent:58},
+    altres:{n:"Altres", c:"var(--c1)", budget:160, spent:31}
+  };
+  var QUEUE = [
+    {who:"Mercadona", amt:23.40, when:"avui, 19:12", opts:["super","casa","oci"]},
+    {who:"Bar de la plaça", amt:18.50, when:"ahir, 22:40", opts:["oci","super","altres"]},
+    {who:"Bizum a Marta", amt:30.00, when:"ahir", opts:["oci","altres","casa"]}
+  ];
+  var feed = document.getElementById("feed"), status = document.getElementById("status");
+  var voice = document.getElementById("voice"), photo = document.getElementById("photo");
+  var goal = 340, total = 0;
+  Object.keys(CATS).forEach(function(k){ total += CATS[k].spent; });
+
+  function mk(t,c,x){var e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e;}
+  function eur(v){ return v.toLocaleString("ca-ES",{minimumFractionDigits: v%1?2:0, maximumFractionDigits:2}) + " €"; }
+  function scroll(){ feed.scrollTop = feed.scrollHeight; }
+  function say(nodes, who){ var m = mk("div","msg "+(who||"milo")); nodes.forEach(function(n){ m.appendChild(typeof n==="string" ? document.createTextNode(n) : n); }); feed.appendChild(m); scroll(); return m; }
+  function bold(t){ return mk("span","amt",t); }
+
+  function render(){
+    document.getElementById("spent").textContent = eur(Math.round(total*100)/100);
+    var left = 1200 - total;
+    document.getElementById("left").textContent = (left >= 0 ? "Et queden " + eur(Math.round(left*100)/100) : "Has passat " + eur(Math.round(-left*100)/100)) + " de 1.200 € de pressupost";
+    var box = document.getElementById("cats"); box.textContent = "";
+    Object.keys(CATS).forEach(function(k){
+      var c = CATS[k], pct = Math.min(100, Math.round(c.spent/c.budget*100)), over = c.spent > c.budget;
+      var row = mk("div","c"+(over?" over":""));
+      var name = mk("span"); var dot = mk("span","cat"); dot.style.background = c.c; name.appendChild(dot); name.appendChild(document.createTextNode(" "+c.n));
+      var bar = mk("span","bar"); var fill = mk("i"); fill.style.width = pct+"%"; fill.style.background = over ? "#B42318" : c.c; bar.appendChild(fill);
+      row.appendChild(name); row.appendChild(bar); row.appendChild(mk("em",null, Math.round(c.spent) + " / " + c.budget + " €"));
+      box.appendChild(row);
+    });
+    document.getElementById("goalTxt").textContent = eur(goal) + " de 600 €";
+    document.getElementById("goalBar").style.width = Math.min(100, Math.round(goal/600*100)) + "%";
+  }
+
+  function add(cat, amt){
+    CATS[cat].spent += amt; total += amt; render();
+    var c = CATS[cat];
+    if(c.spent > c.budget){
+      var over = Math.round((c.spent - c.budget)*100)/100;
+      goal = Math.max(0, goal - 0);
+      document.getElementById("goalNote").textContent = "Compte: si l'oci segueix així, el viatge es retarda un mes.";
+      return "Apuntat a " + c.n + ". Ja t'has passat " + eur(over) + " del pressupost d'" + c.n.toLowerCase() + " aquest mes.";
+    }
+    return "Apuntat a " + c.n + ". Et queden " + eur(Math.round((c.budget - c.spent)*100)/100) + " per a " + c.n.toLowerCase() + ".";
+  }
+
+  function ask(){
+    if(!QUEUE.length){ say(["Res més per avui. Bona feina: el mes està al dia."]); status.textContent = "al dia"; return; }
+    var q = QUEUE.shift();
+    var m = say(["He vist ", bold(eur(q.amt)), " a ", bold(q.who), " (" + q.when + "). Què era?"]);
+    var chips = mk("div","chips");
+    q.opts.forEach(function(k){
+      var b = mk("button"); b.type = "button"; var d = mk("span","cat"); d.style.background = CATS[k].c; b.appendChild(d); b.appendChild(document.createTextNode(CATS[k].n));
+      b.addEventListener("click", function(){
+        chips.querySelectorAll("button").forEach(function(x){ x.disabled = true; });
+        say([CATS[k].n], "me");
+        var reply = add(k, q.amt);
+        setTimeout(function(){ var r = say([reply]); if(/passat/.test(reply)){ r.appendChild(mk("div","alert","Vols que t'avisi abans del proper cop?")); } setTimeout(ask, 700); }, 450);
+      });
+      chips.appendChild(b);
+    });
+    m.appendChild(chips); scroll();
+  }
+
+  voice.addEventListener("click", function(){
+    voice.disabled = true;
+    var w = mk("div","wave"); for(var i=0;i<22;i++){ var b = mk("i"); b.style.height = (6 + ((i*7)%15)) + "px"; w.appendChild(b); }
+    say([w, "«Ahir quinze euros de gasolina»"], "me");
+    status.textContent = "escoltant…";
+    setTimeout(function(){ status.textContent = "t'escolta"; say(["Entès: ", bold("15 €"), " de gasolina, ahir. " + add("transport", 15)]); }, 900);
+  });
+  photo.addEventListener("click", function(){
+    photo.disabled = true;
+    var t = mk("div","ticket"); t.textContent = "FARMÀCIA DEL CENTRE\nCrema solar SPF50   12,90\nIbuprofèn 400        3,10\nTOTAL               16,00 €"; t.style.whiteSpace = "pre";
+    say([t, "Tiquet"], "me");
+    status.textContent = "llegint el tiquet…";
+    setTimeout(function(){ status.textContent = "t'escolta"; say(["He llegit el tiquet: ", bold("16 €"), " a Farmàcia del Centre. " + add("altres", 16)]); }, 1100);
+  });
+
+  render();
+  say(["Bona tarda! Tinc tres moviments del banc que no sé classificar. M'ajudes? Són dos tocs."]);
+  setTimeout(ask, 500);
+})();
+</script>
+</body>
+</html>

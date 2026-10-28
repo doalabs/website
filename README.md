@@ -8,7 +8,7 @@ Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no depe
 - Projects: `assets/projects.js` (add, reorder, change status or text; `featured: true` shows it on the home page).
 - Settings: `assets/config.js` (booking calendar URL, contact email).
 - Styles: `assets/styles.css` (design tokens at the top).
-- Live demos: one self-contained page per project in `demos/<slug>/index.html`, linked from the card with `demo:` in `assets/projects.js`. Each demo has a fixed "Tornar a DOA Labs" button and its booking button points to `/cita/`. Current demos: Camí al 14, Whalbar (WhatsApp chat you can drive + panel), Carnet de fan (card, shop validation, club revenue calculator).
+- Live demos: one self-contained page per project in `demos/<slug>/index.html`, linked from the card with `demo:` in `assets/projects.js`. Demo cards open in a new tab; each demo has a fixed "Tanca la demo · DOA Labs" button that closes the tab (so the visitor is back on the site) or, if the demo was opened directly, goes to `/feina/`. Booking buttons point to `/cita/`. Current demos: Camí al 14, Whalbar (WhatsApp chat you can drive + panel), Carnet de fan (card, shop validation, club revenue calculator), AEA (student panel, syllabus, A/B simulator with scoring), Milo (expense chat: tap, voice note, receipt photo; live monthly budget).
 - Pages: `index.html`, `feina/`, `feina/whalbar/`, `immobiliari/`, `cita/`, `privacitat/`, `avis-legal/`, `404.html`.
 
 ## Positioning
@@ -33,8 +33,8 @@ Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) 
 - **Solutions:** diagnosis and advice · custom management tools (ERP/CRM-like dashboards) · AI agents (WhatsApp, documents, photos) · process automation · websites that bring clients · online academies · loyalty and new revenue (digital fan cards).
 
 ## Cases shown (no "own product" labels; the site shows solutions, not ownership)
-Whalbar (AI agent, hospitality) · Daniela Meriuta (website and lead capture, real estate) · Club Bàsquet 3 Viles (custom management tool) · SwishCoach (AI app, for Endora Biotech Sports) · AEA (online academy) · Fan cards (loyalty and revenue for clubs) · Sam Brindle Coaching · Camí al 14 (study platform for AMPAs) · Viure al Maresme · PropPulse · Court Commander.
-Not shown: MDO, SUMA Llar, Puerto, Milo, Prego, Ajudes Clares, My Digital Me, Matchday Journal Builder.
+Whalbar (AI agent + panel, hospitality) · Camí al 14 (study platform for AMPAs) · Daniela Meriuta (website and lead capture, real estate) · Club Bàsquet 3 Viles (fan cards: loyalty and revenue for clubs) · SwishCoach (AI app, for Endora Biotech Sports) · AEA (online academy) · Milo (expense assistant app) · Sam Brindle Coaching · Viure al Maresme · Court Commander.
+Not shown: MDO, SUMA Llar, Puerto, Prego, Ajudes Clares, My Digital Me, Matchday Journal Builder, PropPulse.
 
 ## Design system (do not drift)
 - Colours: ground `#F2F0EA` · surface `#FFFFFF` · ink / dark band `#121412` · dark surface `#1C1F1D` · muted `#575C57` · on-dark muted `#A9AEA8` · lines `#D9D6CC` · accent `#FF6A2B` (fills and large type only; never small text on light ground)

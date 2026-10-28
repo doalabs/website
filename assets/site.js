@@ -37,7 +37,7 @@
     var attrs = { "class": "project" + (p.demo ? " has-demo" : "") };
     if (target) attrs.href = target;
     if (p.demo) {
-      attrs["aria-label"] = p.name + ": obre la demo interactiva";
+      attrs["aria-label"] = p.name + ": obre la demo interactiva en una pestanya nova"; attrs.target = "_blank";
       shot.appendChild(el("span", { "class": "demo-tag", text: "Prova la demo →" }));
     }
     return el(tagName, attrs, [
