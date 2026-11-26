@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Osacar Andreu;Daniel;;;
+FN:Dani Osacar
+ORG:DOA Labs
+TITLE:Fundador · Consultoria de negoci i IA
+TEL;TYPE=CELL,VOICE:+34630635415
+EMAIL;TYPE=WORK:dani@doalabs.eu
+URL:https://doalabs.eu
+URL;TYPE=LinkedIn:https://www.linkedin.com/in/dani-osacar
+ADR;TYPE=WORK:;;;Sant Andreu de Llavaneres;Barcelona;08392;Espanya
+NOTE:Primera cita gratuïta: https://doalabs.eu/cita/
+END:VCARD
