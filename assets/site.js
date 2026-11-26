@@ -1,8 +1,8 @@
 /* DOA Labs — renders project cards and the sector filter. No dependencies. */
 (function () {
-  var DOTS = { "En marxa": "var(--live)", "Beta": "var(--beta)", "Llançament": "var(--beta)", "En desenvolupament": "var(--dev)", "Aturat": "var(--paused)" };
-  // Work-page filter groups cases by the kind of solution, which is what a client is looking for
-  var FILTER_KEY = "kind";
+  var DOTS = { "En marxa": "var(--live)", "Beta": "var(--beta)", "Llançament": "var(--beta)", "En desenvolupament": "var(--dev)", "Prototip": "var(--paused)", "Aturat": "var(--paused)" };
+  // Work-page filter groups cases by sector (who it is for); /feina/?sector=… preselects one
+  var FILTER_KEY = "sector";
   var all = window.DOA_PROJECTS || [];
 
   function el(tag, attrs, children) {
@@ -75,7 +75,8 @@
   if (grid && filters) {
     var sectors = ["Tots"];
     all.forEach(function (p) { if (sectors.indexOf(p[FILTER_KEY]) < 0) sectors.push(p[FILTER_KEY]); });
-    var current = "Tots";
+    var wanted = new URLSearchParams(location.search).get("sector");
+    var current = wanted && sectors.indexOf(wanted) > -1 ? wanted : "Tots";
     var buttons = sectors.map(function (s) {
       var count = s === "Tots" ? all.length : all.filter(function (p) { return p[FILTER_KEY] === s; }).length;
       var b = el("button", { type: "button", "class": "chip", "aria-pressed": s === current ? "true" : "false" }, [
@@ -89,7 +90,7 @@
       filters.appendChild(b);
       return b;
     });
-    render(grid, all);
+    render(grid, all.filter(function (p) { return current === "Tots" || p[FILTER_KEY] === current; }));
   }
 
   // Booking embed: set DOA_BOOKING_URL in /assets/config.js

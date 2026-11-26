@@ -18,7 +18,7 @@ Status: **v1 built as a static site** (plain HTML/CSS/JS, no build step, no depe
 - **Line:** *Tu fes la teva feina. El sistema fa la resta.*
 - **Promise:** I listen, we look at it together, I make a proposal, we agree it, I build it in your name, and then it runs on its own.
 - **Proof:** 30+ websites, apps, agents and tools built; 10+ years selling property on the Maresme coast; 13 years running seven bars, restaurants and beach clubs; one year at Oracle EMEA (Dublin); Localret.
-- **Doors:** property agents (second door, own landing) · clubs & associations · coaches & services · hospitality.
+- **Doors (home + /feina/?sector=):** Comerç i hostaleria · Immobiliari (own landing) · Despatxos i professionals · Clubs i esport · Formació.
 
 ## Languages
 Catalan first, then Spanish and English (switcher CA · ES · EN). ES and EN copy follow once the Catalan version is approved.
@@ -36,16 +36,16 @@ Inici 900 € (26 h) · Creixement 1.250 € (36 h) · Complet 1.700 € (48 h) 
 - **Solutions:** diagnosis and advice · custom management tools (ERP/CRM-like dashboards) · AI agents (WhatsApp, documents, photos) · process automation · websites that bring clients · online academies · loyalty and new revenue (digital fan cards).
 
 ## Cases shown (no "own product" labels; the site shows solutions, not ownership)
-Whalbar (AI agent + panel, hospitality) · Camí al 14 (study platform for AMPAs) · Daniela Meriuta (website and lead capture, real estate) · Club Bàsquet 3 Viles (fan cards: loyalty and revenue for clubs) · SwishCoach (AI app, for Endora Biotech Sports) · AEA (online academy) · Milo (expense assistant app) · Sam Brindle Coaching · Viure al Maresme · Court Commander.
+Whalbar (AI agent + panel, hospitality) · Replà (prototype, property managers; status Prototip) · Camí al 14 (study platform for AMPAs) · Daniela Meriuta (website and lead capture, real estate) · Club Bàsquet 3 Viles (fan cards: loyalty and revenue for clubs) · SwishCoach (AI app, for Endora Biotech Sports) · AEA (online academy) · Milo (expense assistant app) · Sam Brindle Coaching · Viure al Maresme · Court Commander.
 Not shown: MDO, SUMA Llar, Puerto, Prego, Ajudes Clares, My Digital Me, Matchday Journal Builder, PropPulse.
 
 ## Design system (do not drift)
-- Colours: ground `#F2F0EA` · surface `#FFFFFF` · ink / dark band `#121412` · dark surface `#1C1F1D` · muted `#575C57` · on-dark muted `#A9AEA8` · lines `#D9D6CC` · accent `#FF6A2B` (fills and large type only; never small text on light ground)
+- Colours: ground `#F2F0EA` · surface `#FFFFFF` · ink / dark band `#121412` · dark surface `#1C1F1D` · muted `#575C57` · on-dark muted `#A9AEA8` · lines `#D9D6CC` · accent `#17B3A3` teal (fills, and text on dark only) · accent-deep `#0F766E` (accent text on light ground)
 - Status dots: live `#2E9E5B` · beta `#C98A00` · in development `#3D6FE0` · paused `#8A8F89` (always with a text label)
 - Type: Archivo 800 for headlines (tight tracking), Archivo for body, JetBrains Mono for labels and numbers
 - Shapes: 16–24 px radii on cards, pill buttons, 44 px minimum touch targets, max width 1240 px
 - Forbidden: gradients, purple/blue tech palettes, glassmorphism, emoji, stock photos of people, left-border accent cards, sparkle or robot icons
-- Logo: three blocks D (outline) · O (accent) · A (solid) + "Labs" (`.mk` in styles.css); with the method line Diagnosticar · Ordenar · Automatitzar for documents. Favicon: the orange O block.
+- Logo: three blocks D (outline) · O (accent) · A (solid) + "Labs" (`.mk` in styles.css); with the method line Diagnosticar · Ordenar · Automatitzar for documents. Favicon: the teal O block.
 - Videos: `assets/video/` (720p web versions, preload none). Move to YouTube if Netlify credits run short.
 - Images: real screenshots of each project; real photo of Dani. Placeholder scene photos in `assets/photos/` (AI-generated, warm muted colour with grain) until real ones are taken
 
