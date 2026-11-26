@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="390" height="844">
+  <rect width="390" height="844" fill="#F5F3EE"/>
+  <rect width="390" height="132" fill="#12302B"/>
+  <circle cx="44" cy="92" r="22" fill="#F5F3EE"/>
+  <text x="44" y="98" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="15" font-weight="800" fill="#12302B">MF</text>
+  <text x="78" y="88" font-family="Helvetica, Arial, sans-serif" font-size="17" font-weight="700" fill="#F5F3EE">Maresme Finques · Incidències</text>
+  <text x="78" y="108" font-family="Helvetica, Arial, sans-serif" font-size="13" fill="#B9C4BF">compte d'empresa</text>
+
+  <rect x="150" y="172" width="220" height="74" rx="16" fill="#D7EFE2"/>
+  <text x="166" y="200" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#12302B">Hi ha una fuga d'aigua al</text>
+  <text x="166" y="222" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#12302B">replà del 3r.</text>
+
+  <rect x="20" y="268" width="250" height="74" rx="16" fill="#FFFFFF"/>
+  <text x="36" y="296" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#12302B">Gràcies, Marta. Em pots enviar</text>
+  <text x="36" y="318" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#12302B">una foto de la fuga?</text>
+
+  <rect x="210" y="364" width="160" height="120" rx="16" fill="#C9D6CF"/>
+  <path d="M250 450 L280 410 L300 432 L318 418 L340 450 Z" fill="#9FB3A8"/>
+  <circle cx="320" cy="396" r="10" fill="#9FB3A8"/>
+
+  <rect x="20" y="506" width="300" height="118" rx="16" fill="#FFFFFF"/>
+  <text x="36" y="534" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#12302B">Incidència INC-0147 registrada.</text>
+  <text x="36" y="556" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#12302B">El lampista de guàrdia ja està</text>
+  <text x="36" y="578" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#12302B">avisat i hi va avui a les 17 h.</text>
+  <circle cx="44" cy="603" r="7" fill="#C2410C"/>
+  <text x="58" y="608" font-family="Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#C2410C">Urgent · Fontaneria</text>
+
+  <g transform="translate(36 652) scale(0.22)">
+    <path d="M22 6H46A12 12 0 0 1 58 18V34A12 12 0 0 1 46 46H26V54H18V62H10V18A12 12 0 0 1 22 6Z" fill="#4A5550"/>
+  </g>
+  <text x="56" y="664" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#4A5550">Gestionat amb Replà</text>
+
+  <rect x="16" y="770" width="358" height="50" rx="25" fill="#FFFFFF" stroke="#D9D5CC"/>
+  <text x="40" y="801" font-family="Helvetica, Arial, sans-serif" font-size="15" fill="#8A8F89">Missatge</text>
+</svg>
